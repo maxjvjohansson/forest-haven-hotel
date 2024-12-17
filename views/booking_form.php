@@ -49,7 +49,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
     <input type="text" id="transfer_code" name="transfer_code">
 
     <!-- Total Cost Display -->
-    <p>Total Cost: $<span id="totalCost">0.00</span></p>
+    <p><strong>Total:</strong> $<span id="totalCost">0.00</span></p>
 
     <!-- Confirm/Submit -->
     <button type="submit">Book room</button>

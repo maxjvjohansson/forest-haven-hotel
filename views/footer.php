@@ -1,7 +1,7 @@
 <footer>
 
 </footer>
-<script src="/assets/js/script.js"></script>
+<script src="/assets/js/booking.js"></script>
 
 </body>
 

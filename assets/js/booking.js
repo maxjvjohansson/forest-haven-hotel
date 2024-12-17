@@ -1,5 +1,3 @@
-// Calculate totalprice for every booking
-
 function updateTotal() {
     let totalCost = 0;
 
@@ -16,10 +14,13 @@ function updateTotal() {
 
     // Update total price in the DOM
     document.getElementById('totalCost').textContent = totalCost.toFixed(2);
+
+    // Update the hidden total_cost input
+    document.getElementById('total_cost').value = totalCost.toFixed(2);
 }
 
-// Run function directly to show totalcost
+// Run function directly to show total cost when the page loads
 document.addEventListener('DOMContentLoaded', updateTotal);
 
-// Run function when elements change
+// Run function when elements change (room selection or feature checkboxes)
 document.getElementById('bookingForm').addEventListener('change', updateTotal);

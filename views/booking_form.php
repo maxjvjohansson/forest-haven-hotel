@@ -51,6 +51,9 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
     <!-- Total Cost Display -->
     <p><strong>Total:</strong> $<span id="totalCost">0.00</span></p>
 
+    <!-- Hidden input for total cost -->
+    <input type="hidden" id="total_cost" name="total_cost" value="0">
+
     <!-- Confirm/Submit -->
     <button type="submit">Book room</button>
 </form>

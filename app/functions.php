@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use GuzzleHttp\Client;
+
 function validateFeatures(PDO $database, array $features): array
 {
     // Convert all feature values to whole numbers and filter away invalid values
@@ -20,4 +22,10 @@ function validateFeatures(PDO $database, array $features): array
     }
 
     return []; // Return empty array if features don't exist
+}
+
+// Function to check if UUID is valid
+function isValidUuid(string $uuid): bool
+{
+    return preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/', $uuid) === 1;
 }

@@ -1,7 +1,17 @@
 <?php
 
-// Fetch the global configuration array.
-$config = require __DIR__ . '/config.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-// Setup the database connection.
-$database = new PDO($config['database_path']);
+use Dotenv\Dotenv;
+
+// Initialize dotenv and load .env file
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+$databasePath = __DIR__ . '/../app/database';
+
+// Get database name from environment variables
+$databaseName = $_ENV['DB_NAME'];
+
+// Setup the database connection using environment variables
+$database = new PDO("sqlite:" . $databasePath . '/' . $databaseName);

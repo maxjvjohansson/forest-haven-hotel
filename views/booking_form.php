@@ -1,3 +1,14 @@
+<?php
+
+// Get room prices from database
+$query = $database->query("SELECT id, type, price FROM rooms");
+$rooms = $query->fetchAll(PDO::FETCH_ASSOC);
+
+// Get feature prices from database
+$query = $database->query("SELECT id, name, price FROM features");
+$features = $query->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <form id="bookingForm" method="POST" action="../../app/posts/store.php">
     <h2>Make a reservation</h2>
 
@@ -11,18 +22,22 @@
     <!-- Select Rooms -->
     <label for="room">Select room:</label>
     <select id="room" name="room" required onchange="updateTotal()">
-        <option value="1" data-price="1">Woodland Retreat - $1</option>
-        <option value="2" data-price="2">Forest Haven - $2</option>
-        <option value="3" data-price="3">Canopy Grand Suite - $3</option>
+        <?php foreach ($rooms as $room): ?>
+            <option value="<?= $room['id'] ?>" data-price="<?= $room['price'] ?>">
+                <?= htmlspecialchars($room['type']) ?> - $<?= number_format($room['price'], 2) ?>
+            </option>
+        <?php endforeach; ?>
     </select>
 
     <!-- Add features -->
     <fieldset>
         <legend>Add features:</legend>
-        <label><input type="checkbox" name="features[]" value="1" data-price="1" onchange="updateTotal()"> Forest-Themed Breakfast Buffet - $1</label><br>
-        <label><input type="checkbox" name="features[]" value="2" data-price="2" onchange="updateTotal()"> Nature-Inspired Spa Retreat - $2</label><br>
-        <label><input type="checkbox" name="features[]" value="3" data-price="1" onchange="updateTotal()"> Guided Forest Hike - $1</label><br>
-        <label><input type="checkbox" name="features[]" value="4" data-price="2" onchange="updateTotal()"> Tree Canopy Adventure Course - $2</label><br>
+        <?php foreach ($features as $feature): ?>
+            <label>
+                <input type="checkbox" name="features[]" value="<?= $feature['id'] ?>" data-price="<?= $feature['price'] ?>" onchange="updateTotal()">
+                <?= htmlspecialchars($feature['name']) ?> - $<?= number_format($feature['price'], 2) ?>
+            </label><br>
+        <?php endforeach; ?>
     </fieldset>
 
     <!-- Guest Name -->

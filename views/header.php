@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<?php require_once __DIR__ . '/navigation.php'; ?>
 
 <body>
+
+    <?php require_once __DIR__ . '/navigation.php'; ?>

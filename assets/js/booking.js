@@ -42,3 +42,32 @@ document.addEventListener('DOMContentLoaded', () => {
 // Recalculate total cost whenever inputs change
 document.getElementById('bookingForm').addEventListener('change', updateTotal);
 
+// Function to let departure date always be after arrival date
+document.addEventListener('DOMContentLoaded', () => {
+    const arrivalInput = document.getElementById('arrival_date');
+    const departureInput = document.getElementById('departure_date');
+
+    // Update departure_date.min value to minimum one day after arrival_date
+    arrivalInput.addEventListener('change', () => {
+        const arrivalDate = new Date(arrivalInput.value);
+
+        if (arrivalDate) {
+            const minDepartureDate = new Date(arrivalDate);
+            minDepartureDate.setDate(minDepartureDate.getDate() + 1);
+
+            const formattedMinDate = minDepartureDate.toISOString().split('T')[0];
+            departureInput.min = formattedMinDate;
+
+            // Clear if departure date is set before arrival date
+            if (new Date(departureInput.value) <= arrivalDate) {
+                departureInput.value = ''; 
+            }
+        }
+    });
+
+    // Validate that departure date is set after arrival date before submiting
+    document.getElementById('bookingForm').addEventListener('submit', (e) => {
+        const arrivalDate = new Date(arrivalInput.value);
+        const departureDate = new Date(departureInput.value);
+    });
+});

@@ -25,14 +25,6 @@ function validateFeatures(PDO $database, array $features): array
     return []; // Return empty array if features don't exist
 }
 
-// Function to calculate how many days are being booked
-function calculateNumberOfDays(string $arrivalDate, string $departureDate): int
-{
-    $arrival = new DateTime($arrivalDate);
-    $departure = new DateTime($departureDate);
-    return $arrival->diff($departure)->days;
-}
-
 // Function to check if a room is available at selected dates
 function isRoomAvailable(PDO $database, int $room, string $arrivalDate, string $departureDate): bool
 {
@@ -47,6 +39,16 @@ function isRoomAvailable(PDO $database, int $room, string $arrivalDate, string $
     $statement->execute();
 
     return $statement->fetchColumn() == 0;
+}
+
+// Function to calculate number of days of a booking
+function calculateDays(string $arrivalDate, string $departureDate): int
+{
+    $arrival = new DateTime($arrivalDate);
+    $departure = new DateTime($departureDate);
+    $interval = $arrival->diff($departure);
+
+    return $interval->days + 1; // Include arrivaldate
 }
 
 // Function to check if UUID is valid
@@ -77,7 +79,7 @@ function validateTransferCode(string $transferCode, float $totalCost): bool
 }
 
 // Deposit to centralbank
-function makeDeposit(string $guestName, string $transferCode, int $numberOfDays): bool
+function makeDeposit(string $guestName, string $transferCode): bool
 {
     $client = new Client();
 
@@ -86,7 +88,6 @@ function makeDeposit(string $guestName, string $transferCode, int $numberOfDays)
             'json' => [
                 'user' => $guestName,
                 'transferCode' => $transferCode,
-                'numberOfDays' => $numberOfDays
             ]
         ]);
 

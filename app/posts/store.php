@@ -10,18 +10,10 @@ if (isset($_POST['room'], $_POST['arrival_date'], $_POST['departure_date'], $_PO
     $departureDate = htmlspecialchars(trim($_POST['departure_date']));
     $guestName = htmlspecialchars(trim($_POST['guest_name']));
     $transferCode = htmlspecialchars(trim($_POST['transfer_code']));
-    $totalCost = filter_var(trim($_POST['total_cost']), FILTER_VALIDATE_FLOAT);
     $features = $_POST['features'] ?? [];
 
     // Validate required fields
-    if (
-        empty($room) ||
-        empty($arrivalDate) ||
-        empty($departureDate) ||
-        empty($guestName) ||
-        empty($transferCode) ||
-        $totalCost === false
-    ) {
+    if (empty($room) || empty($arrivalDate) || empty($departureDate) || empty($guestName) || empty($transferCode)) {
         echo json_encode(["error" => "All fields are required and must be valid."]);
         exit;
     }
@@ -32,11 +24,28 @@ if (isset($_POST['room'], $_POST['arrival_date'], $_POST['departure_date'], $_PO
         exit;
     }
 
-    // Sanitized features/function to check if feature is valid
-    $cleanFeatures = validateFeatures($database, $features);
+    // Get price from room
+    $roomQuery = $database->prepare("SELECT price FROM rooms WHERE id = :room_id");
+    $roomQuery->bindParam(':room_id', $room, PDO::PARAM_INT);
+    $roomQuery->execute();
+    $roomPrice = $roomQuery->fetchColumn();
 
-    // Calculate number of days of a booking
-    $numberOfDays = calculateNumberOfDays($arrivalDate, $departureDate);
+    // Sanitized features/function to check if feature is valid and get price from features
+    $cleanFeatures = validateFeatures($database, $features);
+    $featureQuery = $database->prepare("
+        SELECT id, name, price 
+        FROM features 
+        WHERE id IN (" . implode(',', array_fill(0, count($cleanFeatures), '?')) . ")
+    ");
+    $featureQuery->execute($cleanFeatures);
+    $selectedFeatures = $featureQuery->fetchAll(PDO::FETCH_ASSOC);
+
+    // Calculate the total cost of selected features
+    $totalFeatureCost = array_reduce($selectedFeatures, fn($sum, $feature) => $sum + $feature['price'], 0);
+
+    // Calculate total cost of the booking
+    $numberOfDays = calculateDays($arrivalDate, $departureDate);
+    $totalCost = ($roomPrice * $numberOfDays) + $totalFeatureCost;
 
     // Check if a room is available at selected dates
     if (!isRoomAvailable($database, $room, $arrivalDate, $departureDate)) {
@@ -51,22 +60,58 @@ if (isset($_POST['room'], $_POST['arrival_date'], $_POST['departure_date'], $_PO
     }
 
     // Make a deposit through external API
-    if (!makeDeposit($guestName, $transferCode, $numberOfDays)) {
+    if (!makeDeposit($guestName, $transferCode)) {
         echo json_encode(["error" => "Failed to process the deposit."]);
         exit;
     }
 
     // Save the booking in the database
-    $insertStatement = $database->prepare("
-        INSERT INTO bookings (room_id, arrival_date, departure_date, guest_name, total_cost)
-        VALUES (:room_id, :arrival_date, :departure_date, :guest_name, :total_cost)
+    $insertBooking = $database->prepare("
+        INSERT INTO bookings (room_id, room_price, guest_name, arrival_date, departure_date, total_cost, transfer_code)
+        VALUES (:room_id, :room_price, :guest_name, :arrival_date, :departure_date, :total_cost, :transfer_code)
     ");
-    $insertStatement->bindParam(':room_id', $room, PDO::PARAM_INT);
-    $insertStatement->bindParam(':arrival_date', $arrivalDate, PDO::PARAM_STR);
-    $insertStatement->bindParam(':departure_date', $departureDate, PDO::PARAM_STR);
-    $insertStatement->bindParam(':guest_name', $guestName, PDO::PARAM_STR);
-    $insertStatement->bindParam(':total_cost', $totalCost, PDO::PARAM_STR);
-    $insertStatement->execute();
+    $insertBooking->execute([
+        ':room_id' => $room,
+        ':room_price' => $roomPrice,
+        ':guest_name' => $guestName,
+        ':arrival_date' => $arrivalDate,
+        ':departure_date' => $departureDate,
+        ':total_cost' => $totalCost,
+        ':transfer_code' => $transferCode
+    ]);
 
-    echo json_encode(["success" => "Booking successfully saved."]);
+    $bookingId = $database->lastInsertId();
+
+    // Save features in booking_feature table
+    foreach ($selectedFeatures as $feature) {
+        $insertFeature = $database->prepare("
+            INSERT INTO booking_feature (booking_id, feature_id, feature_cost)
+            VALUES (:booking_id, :feature_id, :feature_cost)
+        ");
+        $insertFeature->execute([
+            ':booking_id' => $bookingId,
+            ':feature_id' => $feature['id'],
+            ':feature_cost' => $feature['price']
+        ]);
+    }
+
+    // Generate response if booking went well
+    $response = [
+        "island" => "Lindenwood Island",
+        "hotel" => "Forest Haven Hotel",
+        "arrival_date" => $arrivalDate,
+        "departure_date" => $departureDate,
+        "total_cost" => number_format($totalCost, 2),
+        "stars" => "3",
+        "features" => array_map(fn($feature) => [
+            "name" => $feature['name'],
+            "cost" => number_format($feature['price'], 2)
+        ], $selectedFeatures),
+        "additional_info" => [
+            "greeting" => "Thank you for choosing Forest Haven Hotel",
+            "imageUrl" => "" // TO-DO: Fill this with an image of choice
+        ]
+    ];
+
+    echo json_encode($response);
 }

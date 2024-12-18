@@ -1,7 +1,7 @@
 <?php
 
 // Get room prices from database
-$query = $database->query("SELECT id, type, price FROM rooms");
+$query = $database->query("SELECT id, type, name, price FROM rooms");
 $rooms = $query->fetchAll(PDO::FETCH_ASSOC);
 
 // Get feature prices from database
@@ -24,7 +24,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
     <select id="room" name="room" required onchange="updateTotal()">
         <?php foreach ($rooms as $room): ?>
             <option value="<?= $room['id'] ?>" data-price="<?= $room['price'] ?>">
-                <?= htmlspecialchars($room['type']) ?> - $<?= number_format($room['price'], 2) ?>
+                <?= htmlspecialchars($room['name']) ?> - $<?= number_format($room['price'], 2) ?>
             </option>
         <?php endforeach; ?>
     </select>

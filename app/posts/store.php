@@ -30,6 +30,11 @@ if (isset($_POST['room'], $_POST['arrival_date'], $_POST['departure_date'], $_PO
     $roomQuery->execute();
     $roomPrice = $roomQuery->fetchColumn();
 
+    // Get actual number of stars for the hotel
+    $starsQuery = $database->prepare("SELECT stars FROM admin_settings");
+    $starsQuery->execute();
+    $stars = $starsQuery->fetchColumn();
+
     // Sanitized features/function to check if feature is valid and get price from features
     $cleanFeatures = validateFeatures($database, $features);
     $featureQuery = $database->prepare("
@@ -102,7 +107,7 @@ if (isset($_POST['room'], $_POST['arrival_date'], $_POST['departure_date'], $_PO
         "arrival_date" => $arrivalDate,
         "departure_date" => $departureDate,
         "total_cost" => number_format($totalCost, 2),
-        "stars" => "3",
+        "stars" => $stars,
         "features" => array_map(fn($feature) => [
             "name" => $feature['name'],
             "cost" => number_format($feature['price'], 2)

@@ -58,7 +58,7 @@ function isValidUuid(string $uuid): bool
 }
 
 // Validate transfercode on centralbank API
-function validateTransferCode(string $transferCode, int $totalCost): array
+function validateTransferCode(string $transferCode, int $totalCost): bool
 {
     $client = new Client();
 
@@ -71,26 +71,10 @@ function validateTransferCode(string $transferCode, int $totalCost): array
         ]);
         $data = json_decode($response->getBody()->getContents(), true);
 
-        // Return data from API source
-        if (isset($data['status']) && $data['status'] === 'success') {
-            return [
-                'status' => true,
-                'message' => 'Transfer code is valid.',
-                'data' => $data
-            ];
-        } else {
-            return [
-                'status' => false,
-                'message' => 'Transfer code is invalid or insufficient funds.',
-                'data' => $data
-            ];
-        }
+        return isset($data['status']) && $data['status'] === 'success';
     } catch (RequestException $e) {
-        return [
-            'status' => false,
-            'message' => 'Error processing request: ' . $e->getMessage(),
-            'data' => null
-        ];
+        error_log('Error validating transfer code: ' . $e->getMessage());
+        return false;
     }
 }
 

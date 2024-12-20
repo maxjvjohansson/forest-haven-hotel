@@ -1,5 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
+// START SESSION IF NOT ALREADY STARTED
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;

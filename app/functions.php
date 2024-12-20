@@ -71,12 +71,12 @@ function validateTransferCode(string $transferCode, int $totalCost): array
         ]);
         $data = json_decode($response->getBody()->getContents(), true);
 
-        // Returnera data från API:et
+        // Return data from API source
         if (isset($data['status']) && $data['status'] === 'success') {
             return [
                 'status' => true,
                 'message' => 'Transfer code is valid.',
-                'data' => $data // Om du vill skicka med annan användbar data
+                'data' => $data
             ];
         } else {
             return [
@@ -86,7 +86,6 @@ function validateTransferCode(string $transferCode, int $totalCost): array
             ];
         }
     } catch (RequestException $e) {
-        // Logga eller hantera fel
         return [
             'status' => false,
             'message' => 'Error processing request: ' . $e->getMessage(),
@@ -109,7 +108,7 @@ function makeDeposit(string $transferCode): array
         ]);
         $data = json_decode($response->getBody()->getContents(), true);
 
-        // Returnera detaljerad data från API:et
+        // Return data from API source
         if (isset($data['status']) && $data['status'] === 'success') {
             return [
                 'status' => true,
@@ -124,7 +123,6 @@ function makeDeposit(string $transferCode): array
             ];
         }
     } catch (RequestException $e) {
-        // Logga eller hantera fel
         return [
             'status' => false,
             'message' => 'Error processing deposit request: ' . $e->getMessage(),

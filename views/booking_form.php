@@ -24,7 +24,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
     <select id="room" name="room" required onchange="updateTotal()">
         <?php foreach ($rooms as $room): ?>
             <option value="<?= $room['id'] ?>" data-price="<?= $room['price'] ?>">
-                <?= htmlspecialchars($room['name']) ?> - $<?= number_format($room['price'], 2) ?>
+                <?= htmlspecialchars($room['name']) ?> - $<?= $room['price'] ?>
             </option>
         <?php endforeach; ?>
     </select>
@@ -35,7 +35,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
         <?php foreach ($features as $feature): ?>
             <label>
                 <input type="checkbox" name="features[]" value="<?= $feature['id'] ?>" data-price="<?= $feature['price'] ?>" onchange="updateTotal()">
-                <?= htmlspecialchars($feature['name']) ?> - $<?= number_format($feature['price'], 2) ?>
+                <?= htmlspecialchars($feature['name']) ?> - $<?= $feature['price'] ?>
             </label><br>
         <?php endforeach; ?>
     </fieldset>
@@ -46,10 +46,10 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Transfer Code -->
     <label for="transfer_code">Transfer Code:</label>
-    <input type="text" id="transfer_code" name="transfer_code">
+    <input type="text" id="transfer_code" name="transfer_code" required>
 
     <!-- Total Cost Display -->
-    <p><strong>Total:</strong> $<span id="totalCost">0.00</span></p>
+    <p><strong>Total:</strong> $<span id="totalCost">0</span></p>
 
     <!-- Hidden input for total cost -->
     <input type="hidden" id="total_cost" name="total_cost" value="0">

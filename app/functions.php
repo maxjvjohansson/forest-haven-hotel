@@ -58,43 +58,77 @@ function isValidUuid(string $uuid): bool
 }
 
 // Validate transfercode on centralbank API
-function validateTransferCode(string $transferCode, float $totalCost): bool
+function validateTransferCode(string $transferCode, int $totalCost): array
 {
     $client = new Client();
 
     try {
         $response = $client->post('https://www.yrgopelago.se/centralbank/transferCode', [
-            'json' => [
+            'form_params' => [
                 'transferCode' => $transferCode,
                 'totalcost' => $totalCost
             ]
         ]);
-
         $data = json_decode($response->getBody()->getContents(), true);
 
-        return isset($data['status']) && $data['status'] === 'valid';
+        // Returnera data från API:et
+        if (isset($data['status']) && $data['status'] === 'success') {
+            return [
+                'status' => true,
+                'message' => 'Transfer code is valid.',
+                'data' => $data // Om du vill skicka med annan användbar data
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Transfer code is invalid or insufficient funds.',
+                'data' => $data
+            ];
+        }
     } catch (RequestException $e) {
-        return false;
+        // Logga eller hantera fel
+        return [
+            'status' => false,
+            'message' => 'Error processing request: ' . $e->getMessage(),
+            'data' => null
+        ];
     }
 }
 
 // Deposit to centralbank
-function makeDeposit(string $guestName, string $transferCode): bool
+function makeDeposit(string $transferCode): array
 {
     $client = new Client();
 
     try {
         $response = $client->post('https://www.yrgopelago.se/centralbank/deposit', [
-            'json' => [
-                'user' => $guestName,
+            'form_params' => [
+                'user' => 'Max',
                 'transferCode' => $transferCode,
             ]
         ]);
-
         $data = json_decode($response->getBody()->getContents(), true);
 
-        return isset($data['status']) && $data['status'] === 'success';
+        // Returnera detaljerad data från API:et
+        if (isset($data['status']) && $data['status'] === 'success') {
+            return [
+                'status' => true,
+                'message' => 'Deposit processed successfully.',
+                'data' => $data
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Failed to process the deposit.',
+                'data' => $data
+            ];
+        }
     } catch (RequestException $e) {
-        return false;
+        // Logga eller hantera fel
+        return [
+            'status' => false,
+            'message' => 'Error processing deposit request: ' . $e->getMessage(),
+            'data' => null
+        ];
     }
 }

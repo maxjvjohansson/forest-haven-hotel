@@ -65,7 +65,7 @@ if (isset($_POST['room'], $_POST['arrival_date'], $_POST['departure_date'], $_PO
     }
 
     // Make a deposit through external API
-    if (!makeDeposit($guestName, $transferCode)) {
+    if (!makeDeposit($transferCode)) {
         echo json_encode(["error" => "Failed to process the deposit."]);
         exit;
     }
@@ -106,11 +106,11 @@ if (isset($_POST['room'], $_POST['arrival_date'], $_POST['departure_date'], $_PO
         "hotel" => "Forest Haven Hotel",
         "arrival_date" => $arrivalDate,
         "departure_date" => $departureDate,
-        "total_cost" => number_format($totalCost, 2),
+        "total_cost" => $totalCost,
         "stars" => $stars,
         "features" => array_map(fn($feature) => [
             "name" => $feature['name'],
-            "cost" => number_format($feature['price'], 2)
+            "cost" => $feature['price'],
         ], $selectedFeatures),
         "additional_info" => [
             "greeting" => "Thank you for choosing Forest Haven Hotel",

@@ -11,6 +11,16 @@ function updateTotal() {
     const arrivalDate = new Date(arrivalInput.value);
     const departureDate = new Date(departureInput.value);
 
+    // Ensure arrival date is before departure date
+    if (arrivalDate > departureDate) {
+        alert('Arrival date cannot be after departure date.');
+        // Reset both dates to prevent invalid input
+        arrivalInput.value = '';
+        departureInput.value = '';
+        // Prevent further calculations
+        return;
+    }
+
     // Calculate number of days if both arrival and departure is selected
     let numberOfDays = 1; // Default to 1 day if no dates selected
     if (arrivalInput.value && departureInput.value && departureDate > arrivalDate) {
@@ -47,5 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen to changes in arrival date and departure date
     arrivalInput.addEventListener('change', updateTotal);
     departureInput.addEventListener('change', updateTotal);
+
+    arrivalInput.addEventListener('change', () => {
+        const arrivalDate = new Date(arrivalInput.value);
+        departureInput.min = arrivalDate.toISOString().split('T')[0]; // Set min to arrival date
+        updateTotal();
+    });
 });
 

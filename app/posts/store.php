@@ -62,6 +62,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
+        // Check if transfercode already is used
+        $checkTransferCodeQuery = $database->prepare("SELECT COUNT(*) FROM bookings WHERE transfer_code = :transfer_code");
+        $checkTransferCodeQuery->bindParam(':transfer_code', $transferCode, PDO::PARAM_STR);
+        $checkTransferCodeQuery->execute();
+        $isTransferCodeUsed = $checkTransferCodeQuery->fetchColumn() > 0;
+
+        if ($isTransferCodeUsed) {
+            header('Content-Type: application/json');
+            echo json_encode(["error" => "This transfer code has already been used for another booking."]);
+            exit;
+        }
+
         // Validate transfercode against external API
         if (!validateTransferCode($transferCode, $totalCost)) {
             header('Content-Type: application/json');
@@ -124,7 +136,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]
         ];
 
-        header('Content-Type: application/json');
         echo json_encode($response), JSON_PRETTY_PRINT;
     }
 } else {

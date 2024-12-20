@@ -79,7 +79,7 @@ function validateTransferCode(string $transferCode, int $totalCost): bool
 }
 
 // Deposit to centralbank
-function makeDeposit(string $transferCode): array
+function makeDeposit(string $transferCode): bool
 {
     $client = new Client();
 
@@ -92,25 +92,9 @@ function makeDeposit(string $transferCode): array
         ]);
         $data = json_decode($response->getBody()->getContents(), true);
 
-        // Return data from API source
-        if (isset($data['status']) && $data['status'] === 'success') {
-            return [
-                'status' => true,
-                'message' => 'Deposit processed successfully.',
-                'data' => $data
-            ];
-        } else {
-            return [
-                'status' => false,
-                'message' => 'Failed to process the deposit.',
-                'data' => $data
-            ];
-        }
+        return isset($data['status']) && $data['status'] === 'success';
     } catch (RequestException $e) {
-        return [
-            'status' => false,
-            'message' => 'Error processing deposit request: ' . $e->getMessage(),
-            'data' => null
-        ];
+        error_log('Error validating transfer code: ' . $e->getMessage());
+        return false;
     }
 }

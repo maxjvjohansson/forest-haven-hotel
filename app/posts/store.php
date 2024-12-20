@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Generate response if booking went well
         $response = [
-            "island" => "Lindenwood Island",
+            "island" => "Lindenwood Isle",
             "hotel" => "Forest Haven Hotel",
             "arrival_date" => $arrivalDate,
             "departure_date" => $departureDate,
@@ -124,7 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]
         ];
 
-        echo json_encode($response), JSON_PRETTY_PRINT;
+        header('Content-Type: application/json');
+        echo json_encode($response, JSON_PRETTY_PRINT);
     }
 } else {
     header('Location: booking_form.php');

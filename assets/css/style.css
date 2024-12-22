@@ -1,4 +1,4 @@
 .flatpickr-disabled {
-    background-color: #ccc !important; /* Grå bakgrund för otillgängliga datum */
-    color: #888 !important;  /* Grå textfärg för otillgängliga datum */
+    background-color: #ccc !important;
+    color: #888 !important; 
 }

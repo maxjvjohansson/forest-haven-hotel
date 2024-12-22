@@ -14,14 +14,14 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Dates -->
     <label for="arrival_date">Arrival date:</label>
-    <input type="date" id="arrival_date" name="arrival_date" min="2025-01-01" max="2025-01-31" required>
+    <input type="date" id="arrival_date" name="arrival_date" class="hidden-calendar" min="2025-01-01" max="2025-01-31" required>
 
     <label for="departure_date">Departure date:</label>
-    <input type="date" id="departure_date" name="departure_date" min="2025-01-01" max="2025-01-31" required>
+    <input type="date" id="departure_date" name="departure_date" class="hidden-calendar" min="2025-01-01" max="2025-01-31" required>
 
     <!-- Select Rooms -->
     <label for="room">Select room:</label>
-    <select id="room" name="room" required onchange="updateTotal()">
+    <select id="room" name="room" required>
         <?php foreach ($rooms as $room): ?>
             <option value="<?= $room['id'] ?>" data-price="<?= $room['price'] ?>">
                 <?= htmlspecialchars($room['name']) ?> - $<?= $room['price'] ?>
@@ -34,7 +34,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
         <legend>Add features:</legend>
         <?php foreach ($features as $feature): ?>
             <label>
-                <input type="checkbox" name="features[]" value="<?= $feature['id'] ?>" data-price="<?= $feature['price'] ?>" onchange="updateTotal()">
+                <input type="checkbox" name="features[]" value="<?= $feature['id'] ?>" data-price="<?= $feature['price'] ?>">
                 <?= htmlspecialchars($feature['name']) ?> - $<?= $feature['price'] ?>
             </label><br>
         <?php endforeach; ?>

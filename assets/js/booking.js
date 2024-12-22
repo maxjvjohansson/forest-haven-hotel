@@ -5,25 +5,86 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalCostDisplay = document.getElementById('totalCost');
     const totalCostInput = document.getElementById('total_cost');
 
-    // Initiate flatpickr for datefields
-    const arrivalCalendar = flatpickr(arrivalInput, {
-        dateFormat: "Y-m-d",
-        minDate: "2025-01-01",
-        maxDate: "2025-01-31",
-        onChange: () => {
-            syncDepartureMinDate();
-            updateTotal();
-        },
-    });
+    // Function to update totalcost of a booking
+    function updateTotal() {
+        let totalCost = 0;
 
-    const departureCalendar = flatpickr(departureInput, {
-        dateFormat: "Y-m-d",
-        minDate: "2025-01-01",
-        maxDate: "2025-01-31",
-        onChange: updateTotal,
-    });
+        // Get correct price from room
+        const roomPrice = parseInt(roomSelect.options[roomSelect.selectedIndex].getAttribute('data-price')) || 0;
 
-    // Function to 
+        // Make sure flatpickr is initiated before proceeding
+        const arrivalDate = arrivalInput._flatpickr ? arrivalInput._flatpickr.selectedDates[0] : null;
+        const departureDate = departureInput._flatpickr ? departureInput._flatpickr.selectedDates[0] : null;
+
+        if (arrivalDate && departureDate) {
+            const timeDifference = departureDate - arrivalDate;
+            const numberOfDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) + 1;
+            totalCost += roomPrice * numberOfDays;
+        }
+
+        // Add fixed feature price for each booking
+        const featureCheckboxes = document.querySelectorAll('input[name="features[]"]:checked');
+        featureCheckboxes.forEach(checkbox => {
+            totalCost += parseInt(checkbox.getAttribute('data-price')) || 0;
+        });
+
+        // Update totalcost in DOM and serverside
+        totalCostDisplay.textContent = totalCost;
+        totalCostInput.value = totalCost;
+    }
+
+    // Function to get unavailable dates for each room
+    function getUnavailableDatesForRoom(roomId) {
+        return fetch('../app/get_bookings.php')
+            .then(response => response.json())
+            .then(bookingsData => {
+                // Filter booked dates based on room id
+                const roomBookings = bookingsData.filter(booking => booking.room_id === parseInt(roomId));
+                
+                // Create an array containing booked dates/rooms
+                return roomBookings.map(booking => ({
+                    from: booking.from,
+                    to: booking.to
+                }));
+            })
+            .catch(error => {
+                console.error('Error fetching bookings:', error);
+                return []; 
+            });
+    }
+
+    // Function to update calendar when room changes on input
+    function updateCalendar() {
+        const roomId = roomSelect.value;
+        
+        getUnavailableDatesForRoom(roomId).then(unavailableDates => {
+            // Initiate flatpickr calendar and disable already booked dates for each room
+            const arrivalCalendar = flatpickr(arrivalInput, {
+                dateFormat: "Y-m-d",
+                onReady: () => arrivalInput.classList.remove('hidden-calendar'),
+                minDate: "2025-01-01",
+                maxDate: "2025-01-31",
+                weekNumbers: true, // Add number of week to the calendar
+                disable: unavailableDates,
+                onChange: () => {
+                    syncDepartureMinDate();
+                    updateTotal();
+                }
+            });
+
+            const departureCalendar = flatpickr(departureInput, {
+                dateFormat: "Y-m-d",
+                onReady: () => departureInput.classList.remove('hidden-calendar'),
+                minDate: "2025-01-01",
+                maxDate: "2025-01-31",
+                weekNumbers: true, // Add number of week to the calendars
+                disable: unavailableDates, 
+                onChange: updateTotal
+            });
+        });
+    }
+
+    // Function to check that arrival date needs to be set before departure date
     function syncDepartureMinDate() {
         const selectedArrival = arrivalInput._flatpickr.selectedDates[0];
         if (selectedArrival) {
@@ -31,42 +92,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to calculate total booking cost
-    function updateTotal() {
-        let totalCost = 0;
-
-        // Get price from room
-        const roomPrice = parseInt(roomSelect.options[roomSelect.selectedIndex].getAttribute('data-price')) || 0;
-
-        // Get dates from flatpickr calendar
-        const arrivalDate = arrivalInput._flatpickr.selectedDates[0];
-        const departureDate = departureInput._flatpickr.selectedDates[0];
-
-        if (arrivalDate && departureDate) {
-            const timeDifference = departureDate - arrivalDate;
-            const numberOfDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) + 1;
-
-            totalCost += roomPrice * numberOfDays;
-        }
-
-        // Add fixed feature price per booking 
-        const featureCheckboxes = document.querySelectorAll('input[name="features[]"]:checked');
-        featureCheckboxes.forEach(checkbox => {
-            totalCost += parseInt(checkbox.getAttribute('data-price')) || 0;
-        });
-
-        // Update in DOM and serverside
-        totalCostDisplay.textContent = totalCost;
-        totalCostInput.value = totalCost;
-    }
-
-    // Eventlistener to change/display cost depending on user choices
-    roomSelect.addEventListener('change', updateTotal);
+    roomSelect.addEventListener('change', () => {
+        updateCalendar();  // Update calendar when room changes
+        updateTotal();  // Update totalcost on room change
+    });
 
     const featureCheckboxes = document.querySelectorAll('input[name="features[]"]');
     featureCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', updateTotal);
+        checkbox.addEventListener('change', updateTotal);  // Update totalcost if features are added
     });
 
+    // Initiate calendar on refresh
+    updateCalendar();
+
+    // Update totalcost on refresh
     updateTotal();
 });

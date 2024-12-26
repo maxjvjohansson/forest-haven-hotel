@@ -22,3 +22,7 @@ $databaseName = $_ENV['DB_NAME'];
 
 // Setup the database connection using environment variables
 $database = new PDO("sqlite:" . $databasePath . '/' . $databaseName);
+
+// Get admin credentials from environment variables
+define('ADMIN_USERNAME', $_ENV['ADMIN_USER']);  // Admin username
+define('ADMIN_PASSWORD', $_ENV['API_KEY']);  // Admin password/api-key

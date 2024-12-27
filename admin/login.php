@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 session_start();
 
-// Inkludera autoload.php för att ladda miljövariabler och andra inställningar
 require_once __DIR__ . '/../app/autoload.php';
 
 $error = [];
@@ -13,7 +12,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = htmlspecialchars(trim($_POST['username']));
     $password = htmlspecialchars(trim($_POST['password']));
 
-    // Verifiera användarnamn och lösenord (API-nyckel)
+    // Verify username and password
     if ($username !== ADMIN_USERNAME) {
         $error[] = "User not found!";
         $_SESSION['error'] = $error;
@@ -28,14 +27,14 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         exit;
     } else {
         $_SESSION['admin_logged_in'] = true;
-        header('Location: admin/dashboard.php');
+        header('Location: /admin/dashboard.php');
         exit;
     }
 }
 
 if (isset($_SESSION['error'])) {
-    foreach ($_SESSION['error'] as $msg) {
-        echo "<p style='color:red;'>$msg</p>";
+    foreach ($_SESSION['error'] as $message) {
+        echo $message;
     }
     unset($_SESSION['error']);
 }
@@ -43,24 +42,24 @@ if (isset($_SESSION['error'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
+    <title>Forest Haven | Admin Login</title>
 </head>
 
 <body>
 
     <form method="POST">
-        <label for="username">Användarnamn:</label>
+        <label for="username">Username:</label>
         <input type="text" name="username" id="username" required><br>
 
-        <label for="password">Lösenord (API-nyckel):</label>
+        <label for="password">Password:</label>
         <input type="password" name="password" id="password" required><br>
 
-        <button type="submit">Logga in</button>
+        <button type="submit">Log in</button>
     </form>
 
 </body>

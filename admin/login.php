@@ -52,6 +52,8 @@ if (isset($_SESSION['error'])) {
 
 <body>
 
+    <h2>Forest Haven Hotel | Admin Login</h2>
+
     <form method="POST">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" required><br>

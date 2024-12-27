@@ -56,4 +56,7 @@ $hotelStars = $hotelInfo['stars'];
 
     <!-- Confirm/Submit -->
     <button type="submit">Update</button>
+
+    <!-- Logout -->
+    <a href="logout.php" class="logout-button">Logout</a>
 </form>

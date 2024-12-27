@@ -60,6 +60,7 @@ if (isset($_SESSION['error'])) {
         <input type="password" name="password" id="password" required><br>
 
         <button type="submit">Log in</button>
+        <a href="/views/index.php" class="back-button">Back to Home</a>
     </form>
 
 </body>

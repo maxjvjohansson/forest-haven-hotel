@@ -1,5 +1,5 @@
 <footer>
-
+    <a href="/admin/login.php">Admin Login</a>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

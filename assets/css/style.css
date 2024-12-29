@@ -1,3 +1,30 @@
+:root {
+    --black: #1E1E1E;
+    --white: #FFFFFF;
+    --beige-dark: #A9A084;
+    --beige-light: #F7F7EF;
+    --primary-font-regular: "Afacad-Regular";
+    --primary-font-semibold: "Afacad-Semibold";
+    --secondary-font: "Aboreto";
+}
+
+@font-face {
+    font-family: "Aboreto";
+    src: url(/assets/fonts/Aboreto/Aboreto-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Afacad-Regular";
+    src: url(/assets/fonts/Afacad/Afacad-Regular.ttf);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Afacad-Semibold";
+    src: url(/assets/fonts/Afacad/Afacad-SemiBold.ttf);
+    font-weight: 600;
+}
+
 .flatpickr-disabled {
     background-color: #ccc !important;
     color: #888 !important; 

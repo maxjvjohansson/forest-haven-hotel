@@ -13,12 +13,34 @@
 
 <body>
 
-    <?php require_once __DIR__ . '/navigation.php'; ?>
-
-    <section class="hero">
-        <div class="hero-container">
-            <img src="/assets/images/hero-forest-haven-hotel.png">
+    <header>
+        <div class="menu-container">
+            <a href="#" class="logo">
+                <p>Forest Haven Hotel</p>
+            </a>
+            <nav>
+                <ul class="menu-items">
+                    <li class="book-now">
+                        <a href="#">Book Now</a>
+                    </li>
+                    <li class="about">
+                        <a href="#">About Us</a>
+                    </li>
+                    <li class="activities">
+                        <a href="#">Activities</a>
+                    </li>
+                    <li class="contact">
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <h1> Escape to the Forest Haven</h1>
-        <button class="book-btn">Book Now</button>
-    </section>
+
+        <section class="hero">
+            <div class="hero-container">
+                <img src="/assets/images/hero-forest-haven-hotel.png">
+            </div>
+            <h1> Escape to the Forest Haven</h1>
+            <button class="book-btn">Book Now</button>
+        </section>
+    </header>

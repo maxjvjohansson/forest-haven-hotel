@@ -1,0 +1,8 @@
+.flatpickr-disabled {
+    background-color: #ccc !important;
+    color: #888 !important; 
+}
+
+.hidden-calendar {
+    visibility: hidden;
+}

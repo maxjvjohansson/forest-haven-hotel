@@ -1,0 +1,55 @@
+main {
+    padding: 1.5rem;
+    color: var(--black);
+}
+
+.our-rooms {
+    margin-bottom: 3rem;
+}
+
+.our-rooms h2 {
+    font-family: var(--primary-font-regular);
+    font-size: 4rem;
+    font-weight: 400;
+    margin-bottom: 3rem;
+}
+
+.room-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.room-card {
+    width: 30%;
+    background-color: var(--beige-light);
+    padding: 1.25rem;
+}
+
+.room-card h3 {
+    font-family: var(--secondary-font);
+    font-size: 1.5rem;
+    text-align: center;
+    color: var(--black);
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+
+.room-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 3rem;
+}
+
+.room-card ul {
+    padding: 1.25rem;
+    font-family: var(--primary-font-regular);
+    font-size: 1rem;
+}
+
+.room-card ul li {
+    margin-bottom: 1.5rem;
+}
+
+

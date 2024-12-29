@@ -25,6 +25,11 @@
     font-weight: 600;
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
 .flatpickr-disabled {
     background-color: #ccc !important;
     color: #888 !important; 

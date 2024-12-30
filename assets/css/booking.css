@@ -1,3 +1,17 @@
+.booking-title {
+    font-family: var(--primary-font-regular);
+    font-size: 4rem;
+    font-weight: 400;
+    padding: 0;
+    margin-bottom: 3rem;
+}
+
+#bookingForm {
+    border: 1px solid var(--black);
+    margin-bottom: 3rem;
+}
+
+/* Flatpickr calendar styling */
 .flatpickr-disabled {
     background-color: #ccc !important;
     color: #888 !important; 

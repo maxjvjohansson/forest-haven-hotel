@@ -7,7 +7,7 @@ require_once __DIR__ . '/header.php'; ?>
     <section class="our-rooms">
         <h2>Our Rooms</h2>
         <div class="room-cards">
-            <div class="room-card">
+            <div class="room-card" id="room-1">
                 <h3>Woodland Retreat</h3>
                 <img src="/assets/images/room-woodland-retreat.png" alt="Overview of the budget room">
                 <ul>
@@ -16,7 +16,7 @@ require_once __DIR__ . '/header.php'; ?>
                     <li>Complimentary access to hiking trails and guided tours.</li>
                 </ul>
             </div>
-            <div class="room-card">
+            <div class="room-card" id="room-2">
                 <h3>Forest Haven</h3>
                 <img src="/assets/images/room-forest-haven.png" alt="Overview of the standard room">
                 <ul>
@@ -25,7 +25,7 @@ require_once __DIR__ . '/header.php'; ?>
                     <li>Perfect for couples or small families looking for a balance of luxury and affordability.</li>
                 </ul>
             </div>
-            <div class="room-card">
+            <div class="room-card" id="room-3">
                 <h3>Canopy Grand Suite</h3>
                 <img src="/assets/images/room-canopy-grand-suite.png" alt="Overview of the luxury room">
                 <ul>

@@ -108,3 +108,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update totalcost on refresh
     updateTotal();
 });
+
+// Display room card next to booking form based on selected room
+const roomSelect = document.getElementById("room");
+const selectedRoomPreview = document.getElementById("selectedRoomPreview");
+
+// Function to target correct room
+function updateRoomPreview() {
+    const selectedRoomId = roomSelect.value;
+
+    selectedRoomPreview.innerHTML = '';
+
+    if (selectedRoomId) {
+        const selectedRoom = document.getElementById("room-" + selectedRoomId);
+
+        // Clone the complete room card and add next to booking form
+        const roomClone = selectedRoom.cloneNode(true);
+        
+        selectedRoomPreview.appendChild(roomClone);
+
+    } else {
+        selectedRoomPreview.innerHTML = "<h3>Select a room to see details</h3>";
+    }
+}
+
+// Add eventlistener to change room card based on user select
+roomSelect.addEventListener("change", updateRoomPreview);
+updateRoomPreview();

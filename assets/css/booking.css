@@ -6,8 +6,15 @@
     margin-bottom: 3rem;
 }
 
+.booking-container {
+    display: flex;
+    gap: 2rem;
+    font-family: var(--primary-font-regular);
+}
+
 #bookingForm {
     border: 1px solid var(--black);
+    padding: 1rem;
     margin-bottom: 3rem;
 }
 
@@ -19,4 +26,23 @@
 
 .hidden-calendar {
     visibility: hidden;
+}
+
+fieldset {
+    max-width: 50%;
+}
+
+.room-preview {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+.room-preview img {
+    width: 100%;
+    height: auto;
+}
+
+.room-preview h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
 }

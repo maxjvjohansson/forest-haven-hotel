@@ -100,7 +100,7 @@ main {
 
 .feature-text h3 {
     font-family: var(--primary-font-semibold);
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
     font-weight: 600; 
 }

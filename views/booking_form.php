@@ -51,7 +51,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
         <input type="text" id="transfer_code" name="transfer_code" required>
 
         <!-- Total Cost Display -->
-        <p><strong>Total:</strong> $<span id="totalCost">0</span></p>
+        <p>Total: $<span id="totalCost">0</span></p>
 
         <!-- Hidden input for total cost -->
         <input type="hidden" id="total_cost" name="total_cost" value="0">
@@ -59,9 +59,36 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
         <!-- Confirm/Submit -->
         <button type="submit">Book room</button>
 
-        <div id="selectedRoomPreview" class="room-preview">
-            <h3>Select a room to see details</h3>
-        </div>
-
     </form>
+
+    <div class="room-preview">
+        <div class="room-card" id="room-1">
+            <h3>Woodland Retreat</h3>
+            <img src="/assets/images/room-woodland-retreat.png" alt="Overview of the budget room">
+            <ul>
+                <li>Surrounded by serene forest views for ultimate relaxation.</li>
+                <li>Private balcony with cozy seating for stargazing.</li>
+                <li>Complimentary access to hiking trails and guided tours.</li>
+            </ul>
+        </div>
+        <div class="room-card hidden" id="room-2">
+            <h3>Forest Haven</h3>
+            <img src="/assets/images/room-forest-haven.png" alt="Overview of the standard room">
+            <ul>
+                <li>A harmonious blend of comfort and style with forest-inspired decor.</li>
+                <li>Includes a spacious queen-sized bed and a cozy seating nook.</li>
+                <li>Perfect for couples or small families looking for a balance of luxury and affordability.</li>
+            </ul>
+        </div>
+        <div class="room-card hidden" id="room-3">
+            <h3>Canopy Grand Suite</h3>
+            <img src="/assets/images/room-canopy-grand-suite.png" alt="Overview of the luxury room">
+            <ul>
+                <li>Luxurious suite with high ceilings and panoramic forest views.</li>
+                <li>Includes a king-sized bed, lounge area, and private jacuzzi.</li>
+                <li>Designed for guests seeking elegance and adventure.</li>
+            </ul>
+        </div>
+    </div>
+
 </div>

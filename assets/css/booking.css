@@ -1,21 +1,67 @@
 .booking-title {
     font-family: var(--primary-font-regular);
     font-size: 4rem;
-    font-weight: 400;
     padding: 0;
     margin-bottom: 3rem;
 }
 
 .booking-container {
     display: flex;
-    gap: 2rem;
+    justify-content: space-between;
+    gap: 3rem;
     font-family: var(--primary-font-regular);
-}
-
-#bookingForm {
     border: 1px solid var(--black);
     padding: 1rem;
     margin-bottom: 3rem;
+}
+
+#bookingForm {
+    flex: 1;
+    min-width: 50%;
+}
+
+#bookingForm label {
+    margin-bottom: 1rem;
+}
+
+#bookingForm input, #bookingForm select {
+    display: block;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--black);
+    border-radius: 0.25rem;
+}
+
+#bookingForm p {
+    font-family: var(--primary-font-semibold);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+#bookingForm button {
+    color: var(--white);
+    background-color: var(--beige-dark);
+    font-family: var(--secondary-font);
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#bookingForm button:hover {
+    box-shadow: 4px 4px 12px 6px rgba(0, 0, 0, 0.3); 
+    transform: translateY(-3px);
+}
+
+#bookingForm button, #bookingForm p {
+    display: inline-block;
+    width: auto;
+    margin-right: 1rem;
+    vertical-align: middle;
 }
 
 /* Flatpickr calendar styling */
@@ -28,21 +74,30 @@
     visibility: hidden;
 }
 
+fieldset label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1rem;
+}
+
 fieldset {
-    max-width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+legend {
+    font-family: var(--primary-font-semibold);
+    font-size: 1.5rem;
 }
 
 .room-preview {
-    flex: 1;
-    padding: 1.5rem;
-}
-
-.room-preview img {
+    flex-shrink: 0;
     width: 100%;
-    height: auto;
+    padding: 1rem;
 }
 
-.room-preview h3 {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
+.room-preview .room-card.hidden {
+    display: none;
 }

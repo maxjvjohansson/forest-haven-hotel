@@ -109,29 +109,28 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTotal();
 });
 
-// Display room card next to booking form based on selected room
-const roomSelect = document.getElementById("room");
-const selectedRoomPreview = document.getElementById("selectedRoomPreview");
+// Function to update the room preview based on selected option
+document.addEventListener("DOMContentLoaded", function () {
+    const roomSelect = document.getElementById("room");
+    const roomCards = document.querySelectorAll(".room-card");
 
-// Function to target correct room
-function updateRoomPreview() {
-    const selectedRoomId = roomSelect.value;
+    function updateRoomPreview() {
+        // Get the selected room ID
+        const selectedRoomId = roomSelect.value;
 
-    selectedRoomPreview.innerHTML = '';
-
-    if (selectedRoomId) {
-        const selectedRoom = document.getElementById("room-" + selectedRoomId);
-
-        // Clone the complete room card and add next to booking form
-        const roomClone = selectedRoom.cloneNode(true);
-        
-        selectedRoomPreview.appendChild(roomClone);
-
-    } else {
-        selectedRoomPreview.innerHTML = "<h3>Select a room to see details</h3>";
+        // Loop through all room cards and show/hide them
+        roomCards.forEach(card => {
+            if (card.id === `room-${selectedRoomId}`) {
+                card.classList.remove("hidden"); // Show the matching card
+            } else {
+                card.classList.add("hidden"); // Hide non-matching cards
+            }
+        });
     }
-}
 
-// Add eventlistener to change room card based on user select
-roomSelect.addEventListener("change", updateRoomPreview);
-updateRoomPreview();
+    // Add event listener to the room select dropdown
+    roomSelect.addEventListener("change", updateRoomPreview);
+
+    // Initialize preview on page load
+    updateRoomPreview();
+});

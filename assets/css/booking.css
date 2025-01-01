@@ -8,7 +8,8 @@
 .booking-container {
     display: flex;
     justify-content: space-between;
-    gap: 3rem;
+    align-items: flex-start;
+    gap: 1.5rem;
     font-family: var(--primary-font-regular);
     border: 1px solid var(--black);
     padding: 1rem;
@@ -93,9 +94,16 @@ legend {
 }
 
 .room-preview {
-    flex-shrink: 0;
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
     padding: 1rem;
+}
+
+.room-card {
+    margin-top: 3rem;
+    width: 70%;
 }
 
 .room-preview .room-card.hidden {

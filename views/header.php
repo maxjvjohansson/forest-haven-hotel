@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forest Haven Hotel</title>
 
+    <link rel="icon" href="/assets/icons/logo-black.svg">
+
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/header.css">
     <link rel="stylesheet" href="/assets/css/main-content.css">
@@ -19,6 +21,7 @@
     <header>
         <div class="menu-container">
             <a href="#" class="logo">
+                <img src="/assets/icons/logo-white.svg" alt="Forest Haven Logo" class="logo-img">
                 <p>Forest Haven Hotel</p>
             </a>
             <nav>

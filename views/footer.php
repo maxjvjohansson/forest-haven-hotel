@@ -40,7 +40,7 @@
         </ul>
         <ul class="admin-links">
             <li class="link-title">Administration</li>
-            <li><a href="/admin/login.php">Admin Login</a></li>
+            <li><a href="/admin/login.php">Admin Login<img src="/assets/icons/logo-black.svg" alt="Forest Haven Logo"></a></li>
         </ul>
     </div>
     <div class="footer-bottom">

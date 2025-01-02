@@ -19,8 +19,16 @@ header {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
     text-decoration: none;
     color: var(--white);
+}
+
+.logo-img {
+    width: 2rem;
+    height: auto;
+    margin-right: 1rem;
 }
 
 .logo p {
@@ -28,7 +36,7 @@ header {
     font-size: 1.5rem;
 }
 
-.logo p:hover {
+.logo:hover {
     opacity: 0.5;
 }
 
@@ -82,7 +90,6 @@ nav {
     color: var(--white);
     font-family: var(--primary-font-regular);
     font-size: 4rem;
-    font-weight: 400;
 }
 
 .book-btn {

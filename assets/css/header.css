@@ -86,10 +86,17 @@ nav {
     position: absolute;
     top: 25%;
     left: 1.5rem;
-    transform: translateY(-50%);
+    transform: translateY(-50%) translateX(0);
     color: var(--white);
     font-family: var(--primary-font-regular);
     font-size: 4rem;
+    transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Text slide on scroll */
+.hero h1.slide-left {
+    transform: translateY(-50%) translateX(-100vw);
+    transition: transform 2s cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 .book-btn {

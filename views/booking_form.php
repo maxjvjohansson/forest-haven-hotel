@@ -9,7 +9,7 @@ $query = $database->query("SELECT id, name, price FROM features");
 $features = $query->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<h2 class="booking-title">Make a reservation</h2>
+<h2 class="booking-title" id="bookingTitle">Make a reservation</h2>
 
 <div class="booking-container">
     <form id="bookingForm" method="POST" action="../../app/posts/store.php">

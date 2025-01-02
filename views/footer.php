@@ -54,7 +54,7 @@
 </footer>
 
 
-
+<script src="/assets/js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="/assets/js/booking.js"></script>
 

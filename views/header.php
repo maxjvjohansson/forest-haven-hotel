@@ -47,6 +47,6 @@
                 <img src="/assets/images/hero-forest-haven-hotel.png">
             </div>
             <h1> Escape to the Forest Haven</h1>
-            <button class="book-btn">Book Now</button>
+            <button class="book-btn" onclick="scrollToBooking()">Book Now</button>
         </section>
     </header>

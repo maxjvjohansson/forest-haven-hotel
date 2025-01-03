@@ -51,6 +51,14 @@ function calculateDays(string $arrivalDate, string $departureDate): int
     return $interval->days + 1; // Include arrivaldate
 }
 
+// Function to get amount of stars from database
+function getHotelStars($database): int
+{
+    $query = $database->query("SELECT stars FROM admin_settings");
+    $hotelInfo = $query->fetch(PDO::FETCH_ASSOC);
+    return $hotelInfo['stars'];
+}
+
 // Function to check if UUID is valid
 function isValidUuid(string $uuid): bool
 {

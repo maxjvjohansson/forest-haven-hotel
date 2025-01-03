@@ -34,9 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $roomPrice = $roomQuery->fetchColumn();
 
         // Get actual number of stars for the hotel
-        $starsQuery = $database->prepare("SELECT stars FROM admin_settings");
-        $starsQuery->execute();
-        $stars = $starsQuery->fetchColumn();
+        $stars = getHotelStars($database);
 
         // Sanitized features/function to check if feature is valid and get price from features
         $cleanFeatures = validateFeatures($database, $features);

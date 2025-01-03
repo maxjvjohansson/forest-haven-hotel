@@ -99,6 +99,18 @@ nav {
     transition: transform 2s cubic-bezier(0.42, 0, 0.58, 1);
 }
 
+.hotel-stars {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+}
+
+.star-icon {
+    width: 3rem;
+    height: auto;
+    margin: 0.25rem;
+}
+
 .book-btn {
     position: absolute;
     bottom: 7rem; 

@@ -1,3 +1,12 @@
+<?php
+
+require_once __DIR__ . '/../app/functions.php';
+
+// Get actual number of stars for the hotel
+$stars = getHotelStars($database);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,6 +55,13 @@
             <div class="hero-container">
                 <img src="/assets/images/hero-forest-haven-hotel.png">
             </div>
+
+            <div class="hotel-stars">
+                <?php for ($i = 0; $i < $stars; $i++): ?>
+                    <img src="/assets/icons/star.svg" alt="Star" class="star-icon">
+                <?php endfor; ?>
+            </div>
+
             <h1> Escape to the Forest Haven</h1>
             <button class="book-btn" onclick="scrollToBooking()">Book Now</button>
         </section>

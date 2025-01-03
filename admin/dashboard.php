@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../app/autoload.php';
+require_once __DIR__ . '/../app/functions.php';
 
 // Get prices from rooms
 $query = $database->query("SELECT id, type, name, price FROM rooms");
@@ -11,9 +12,8 @@ $query = $database->query("SELECT id, name, price FROM features");
 $features = $query->fetchAll(PDO::FETCH_ASSOC);
 
 // Get stars from admin settings
-$query = $database->query("SELECT stars FROM admin_settings");
-$hotelInfo = $query->fetch(PDO::FETCH_ASSOC);
-$hotelStars = $hotelInfo['stars'];
+$hotelStars = getHotelStars($database);
+
 ?>
 
 <title>Forest Haven | Admin Dashboard</title>

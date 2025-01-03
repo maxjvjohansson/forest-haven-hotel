@@ -118,12 +118,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ], $selectedFeatures),
             "additional_info" => [
                 "greeting" => "Thank you for choosing Forest Haven Hotel",
-                "imageUrl" => "" // TO-DO: Fill this with an image of choice
+                "imageUrl" => "/assets/images/forest-haven-greeting.png"
             ]
         ];
 
         header('Content-Type: application/json');
-        echo json_encode($response, JSON_PRETTY_PRINT);
+        echo json_encode($response);
     }
 } else {
     header('Location: booking_form.php');

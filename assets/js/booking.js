@@ -134,3 +134,25 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialize preview on page load
     updateRoomPreview();
 });
+
+// Function to toggle visibility of info popup
+function toggleInfoPopup(iconId, popupId) {
+    const icon = document.getElementById(iconId);
+    const popup = document.getElementById(popupId);
+
+    icon.addEventListener('click', (event) => {
+        event.stopPropagation();
+        popup.classList.toggle('visible');
+    });
+
+    // Close the popup if clicking outside
+    document.addEventListener('click', (event) => {
+        if (!popup.contains(event.target) && event.target !== icon) {
+            popup.classList.remove('visible');
+        }
+    });
+}
+
+// Initialize the popups
+toggleInfoPopup('roomInfoIcon', 'roomInfoPopup');
+toggleInfoPopup('featureInfoIcon', 'featureInfoPopup');

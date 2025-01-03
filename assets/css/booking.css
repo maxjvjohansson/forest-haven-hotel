@@ -30,6 +30,10 @@
     border-radius: 0.25rem;
 }
 
+#bookingForm label {
+    font-size: 1.25rem;
+}
+
 #bookingForm select {
     cursor: pointer;
 }
@@ -104,6 +108,39 @@ legend {
     font-family: var(--primary-font-semibold);
     font-size: 1.5rem;
     margin-bottom: 1rem;
+}
+
+#transfer_code {
+    width: 24rem;
+}
+
+.info-icon {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.info-icon:hover {
+    opacity: 0.5;
+}
+
+/* Popup styling */
+.info-popup {
+    position: absolute;
+    display: none;
+    background-color: var(--white);
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-size: 1rem;
+    color: #333;
+    z-index: 1000;
+}
+
+.info-popup.visible {
+    display: block;
 }
 
 .room-preview {

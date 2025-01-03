@@ -30,6 +30,12 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
                 </option>
             <?php endforeach; ?>
         </select>
+        <span class="info-icon" id="roomInfoIcon">
+            <img src="/assets/icons/info.svg" alt="Info" class="icon">
+        </span>
+        <div class="info-popup" id="roomInfoPopup">
+            Room prices are per day.
+        </div>
 
         <!-- Add features -->
         <fieldset>
@@ -38,8 +44,14 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
                 <label>
                     <input type="checkbox" name="features[]" value="<?= $feature['id'] ?>" data-price="<?= $feature['price'] ?>">
                     <?= htmlspecialchars($feature['name']) ?> - $<?= $feature['price'] ?>
-                </label>
+                </label><br>
             <?php endforeach; ?>
+            <span class="info-icon" id="featureInfoIcon">
+                <img src="/assets/icons/info.svg" alt="Info" class="icon">
+            </span>
+            <div class="info-popup" id="featureInfoPopup">
+                Feature prices are for the entire booking period.
+            </div>
         </fieldset>
 
         <!-- Guest Name -->

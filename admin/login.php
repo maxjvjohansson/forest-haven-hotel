@@ -48,11 +48,14 @@ if (isset($_SESSION['error'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forest Haven | Admin Login</title>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 
 <body>
 
-    <h2>Forest Haven Hotel | Admin Login</h2>
+    <h2 class="login-title">Forest Haven Hotel | Admin Login</h2>
 
     <form method="POST">
         <label for="username">Username:</label>

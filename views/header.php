@@ -36,7 +36,7 @@ $stars = getHotelStars($database);
             <nav>
                 <ul class="menu-items">
                     <li class="book-now">
-                        <a href="#">Book Now</a>
+                        <a href="#bookingForm">Book Now</a>
                     </li>
                     <li class="about">
                         <a href="#">About Us</a>

@@ -19,3 +19,21 @@ function handleScroll() {
 
 // Scroll eventlistener
 window.addEventListener('scroll', handleScroll);
+
+// Observer that triggers everytime feature gets visible
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        // If visible feature, add visible class to start animation
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);  // Stop observe after visible feature
+        }
+    });
+}, {
+    threshold: 0.5  // Activate when 50% of section is visible
+});
+
+// Wait for site to load
+document.querySelectorAll('.feature').forEach(feature => {
+    observer.observe(feature);
+});

@@ -21,17 +21,17 @@
     min-width: 50%;
 }
 
-#bookingForm label {
-    margin-bottom: 1rem;
-}
-
 #bookingForm input, #bookingForm select {
     display: block;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     padding: 1rem;
     font-size: 1rem;
     border: 1px solid var(--black);
     border-radius: 0.25rem;
+}
+
+#bookingForm select {
+    cursor: pointer;
 }
 
 #bookingForm p {
@@ -44,53 +44,66 @@
     color: var(--white);
     background-color: var(--beige-dark);
     font-family: var(--secondary-font);
-    font-size: 1.5rem;
+    font-size: 1rem;
     border: none;
     border-radius: 1rem;
-    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.25);
     padding: 1rem;
     cursor: pointer;
     transition: 0.3s ease;
 }
 
 #bookingForm button:hover {
-    box-shadow: 4px 4px 12px 6px rgba(0, 0, 0, 0.3); 
+    box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.3); 
     transform: translateY(-3px);
 }
 
 #bookingForm button, #bookingForm p {
     display: inline-block;
-    width: auto;
-    margin-right: 1rem;
     vertical-align: middle;
+    margin: 0 1rem 1rem 0;
 }
 
 /* Flatpickr calendar styling */
 .flatpickr-disabled {
-    background-color: #ccc !important;
-    color: #888 !important; 
+    background-color: #B74E4E!important;
+    color: var(--white) !important; 
 }
+
+.flatpickr-day.selected {
+    background-color: var(--beige-dark) !important;
+    border-color: var(--beige-dark) !important;
+ }
 
 .hidden-calendar {
     visibility: hidden;
 }
 
-fieldset label {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 1rem;
+fieldset {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
 }
 
-fieldset {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+fieldset label {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+fieldset input[type="checkbox"] {
+    margin: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    accent-color: var(--beige-dark);
 }
 
 legend {
     font-family: var(--primary-font-semibold);
     font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .room-preview {

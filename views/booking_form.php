@@ -38,7 +38,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
                 <label>
                     <input type="checkbox" name="features[]" value="<?= $feature['id'] ?>" data-price="<?= $feature['price'] ?>">
                     <?= htmlspecialchars($feature['name']) ?> - $<?= $feature['price'] ?>
-                </label><br>
+                </label>
             <?php endforeach; ?>
         </fieldset>
 

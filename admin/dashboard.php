@@ -3,6 +3,13 @@
 require_once __DIR__ . '/../app/autoload.php';
 require_once __DIR__ . '/../app/functions.php';
 
+// Check if user is logged in
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    // If not, send to loginpage
+    header('Location: login.php');
+    exit;
+}
+
 // Get prices from rooms
 $query = $database->query("SELECT id, type, name, price FROM rooms");
 $rooms = $query->fetchAll(PDO::FETCH_ASSOC);

@@ -8,8 +8,8 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Remove user session
-if (isset($_SESSION['user'])) {
-    unset($_SESSION['user']);
+if (isset($_SESSION['admin_logged_in'])) {
+    unset($_SESSION['admin_logged_in']);
 }
 
 // End session

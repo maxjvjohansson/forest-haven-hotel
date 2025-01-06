@@ -11,7 +11,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
 
 <h2 class="booking-title" id="bookingTitle">Make a reservation</h2>
 
-<div class="booking-container">
+<section class="booking-container">
     <form id="bookingForm" method="POST" action="../../app/posts/store.php">
 
         <!-- Dates -->
@@ -73,7 +73,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
 
     </form>
 
-    <div class="room-preview">
+    <section class="room-preview">
         <div class="room-card" id="room-1">
             <h3>Woodland Retreat</h3>
             <img src="/assets/images/room-woodland-retreat.png" alt="Overview of the budget room">
@@ -101,6 +101,6 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
                 <li>Designed for guests seeking elegance and adventure.</li>
             </ul>
         </div>
-    </div>
+    </section>
 
-</div>
+</section>

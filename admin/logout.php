@@ -16,5 +16,5 @@ if (isset($_SESSION['user'])) {
 session_destroy();
 
 // Send user back to homepage
-header('Location: /../views/index.php');
+header('Location: ../index.php');
 exit;

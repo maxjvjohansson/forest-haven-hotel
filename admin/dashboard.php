@@ -44,17 +44,19 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forest Haven | Admin Login</title>
+    <title>Forest Haven | Admin Dashboard</title>
 
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="icon" href="../assets/icons/logo-black.svg">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 
 <body>
     <header>
         <div class="menu-container">
             <a href="#" class="logo">
-                <img src="/assets/icons/logo-white.svg" alt="Forest Haven Logo" class="logo-img">
+                <img src="../assets/icons/logo-white.svg" alt="Forest Haven Logo" class="logo-img">
                 <p>Forest Haven Hotel | Admin Dashboard</p>
             </a>
         </div>
@@ -62,7 +64,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     </header>
 
     <main>
-        <form id="adminDashboard" method="POST" action="../../app/posts/update.php">
+        <form id="adminDashboard" method="POST" action="../app/posts/update.php">
             <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
                 <p class="success-message">Updates saved successfully!</p>
             <?php endif; ?>
@@ -139,7 +141,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
                             <td><?= htmlspecialchars($booking['departure_date'], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>$<?= htmlspecialchars($booking['total_cost'], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
-                                <a href="/app/posts/delete.php?id=<?= $booking['id'] ?>" class="delete-link" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
+                                <a href="app/posts/delete.php?id=<?= $booking['id'] ?>" class="delete-link" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

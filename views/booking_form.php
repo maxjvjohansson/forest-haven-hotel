@@ -12,7 +12,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
 <h2 class="booking-title" id="bookingTitle">Make a reservation</h2>
 
 <section class="booking-container">
-    <form id="bookingForm" method="POST" action="../../app/posts/store.php">
+    <form id="bookingForm" method="POST" action="/foresthavenhotel/app/posts/store.php">
 
         <!-- Select Dates -->
         <div class="date-fields">
@@ -36,7 +36,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </select>
         <span class="info-icon" id="roomInfoIcon">
-            <img src="/assets/icons/info.svg" alt="Info" class="icon">
+            <img src="assets/icons/info.svg" alt="Info" class="icon">
         </span>
         <div class="info-popup" id="roomInfoPopup">
             Room prices are per day.
@@ -52,7 +52,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
                 </label><br>
             <?php endforeach; ?>
             <span class="info-icon" id="featureInfoIcon">
-                <img src="/assets/icons/info.svg" alt="Info" class="icon">
+                <img src="assets/icons/info.svg" alt="Info" class="icon">
             </span>
             <div class="info-popup" id="featureInfoPopup">
                 Feature prices are for the entire booking period.
@@ -85,7 +85,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
     <section class="room-preview">
         <div class="room-card" id="room-1">
             <h3>Woodland Retreat</h3>
-            <img src="/assets/images/room-woodland-retreat.png" alt="Overview of the budget room">
+            <img src="assets/images/room-woodland-retreat.png" alt="Overview of the budget room">
             <ul>
                 <li>Surrounded by serene forest views for ultimate relaxation.</li>
                 <li>Private balcony with cozy seating for stargazing.</li>
@@ -94,7 +94,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div class="room-card hidden" id="room-2">
             <h3>Forest Haven</h3>
-            <img src="/assets/images/room-forest-haven.png" alt="Overview of the standard room">
+            <img src="assets/images/room-forest-haven.png" alt="Overview of the standard room">
             <ul>
                 <li>A harmonious blend of comfort and style with forest-inspired decor.</li>
                 <li>Includes a spacious queen-sized bed and a cozy seating nook.</li>
@@ -103,7 +103,7 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div class="room-card hidden" id="room-3">
             <h3>Canopy Grand Suite</h3>
-            <img src="/assets/images/room-canopy-grand-suite.png" alt="Overview of the luxury room">
+            <img src="assets/images/room-canopy-grand-suite.png" alt="Overview of the luxury room">
             <ul>
                 <li>Luxurious suite with high ceilings and panoramic forest views.</li>
                 <li>Includes a king-sized bed, lounge area, and private jacuzzi.</li>

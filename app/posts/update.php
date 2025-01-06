@@ -34,6 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Send user back to admin dashboard with a message that everything went well
-    header('Location: /../admin/dashboard.php?success=1');
+    header('Location: ../../admin/dashboard.php?success=1');
     exit;
 }

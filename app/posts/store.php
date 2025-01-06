@@ -120,14 +120,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ], $selectedFeatures),
             "additional_info" => [
                 "greeting" => "Thank you for choosing Forest Haven Hotel",
-                "imageUrl" => "/assets/images/forest-haven-greeting.png"
+                "imageUrl" => "https://maxjvjohansson.se/foresthavenhotel/assets/images/forest-haven-greeting.png"
             ]
         ];
 
         header('Content-Type: application/json');
         echo json_encode($response);
+
+        header('Location: ../../index.php?booking_success=1');
+        exit;
     }
 } else {
-    header('Location: booking_form.php');
+    header('Location: ../../views/booking_form.php');
     exit;
 }

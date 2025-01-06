@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 require_once __DIR__ . '/../app/autoload.php';
 
 $error = [];
@@ -25,7 +23,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         exit;
     } else {
         $_SESSION['admin_logged_in'] = true;
-        header('Location: /admin/dashboard.php');
+        header('Location: dashboard.php');
         exit;
     }
 }
@@ -47,15 +45,17 @@ if (isset($_SESSION['error'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forest Haven | Admin Login</title>
 
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/login.css">
+    <link rel="icon" href="../assets/icons/logo-black.svg">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
 </head>
 
 <body>
 
     <header>
         <a href="#" class="logo">
-            <img src="/assets/icons/logo-white.svg" alt="Forest Haven Logo" class="logo-img">
+            <img src="../assets/icons/logo-white.svg" alt="Forest Haven Logo" class="logo-img">
             <p>Forest Haven Hotel | Admin Login</p>
         </a>
     </header>
@@ -77,7 +77,7 @@ if (isset($_SESSION['error'])) {
 
                 <div class="button-group">
                     <button type="submit">Log in</button>
-                    <a href="/views/index.php" class="back-button">Back to Home</a>
+                    <a href="../index.php" class="back-button">Back to Home</a>
                 </div>
             </form>
         </div>

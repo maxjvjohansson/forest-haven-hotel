@@ -26,10 +26,10 @@
         </ul>
         <ul class="social-links">
             <li class="link-title">Follow Us</li>
-            <li><a href="#"><img src="/assets/icons/faceboook.svg" alt="Facebook Icon"> Facebook</a></li>
-            <li><a href="#"><img src="/assets/icons/instagram.svg" alt="Instagram Icon"> Instagram</a></li>
-            <li><a href="#"><img src="/assets/icons/twitter.svg" alt="Twitter Icon"> Twitter</a></li>
-            <li><a href="#"><img src="/assets/icons/tiktok.svg" alt="TikTok Icon"> TikTok</a></li>
+            <li><a href="#"><img src="assets/icons/faceboook.svg" alt="Facebook Icon"> Facebook</a></li>
+            <li><a href="#"><img src="assets/icons/instagram.svg" alt="Instagram Icon"> Instagram</a></li>
+            <li><a href="#"><img src="assets/icons/twitter.svg" alt="Twitter Icon"> Twitter</a></li>
+            <li><a href="#"><img src="assets/icons/tiktok.svg" alt="TikTok Icon"> TikTok</a></li>
         </ul>
         <ul class="contact-links">
             <li class="link-title">Contact Information</li>
@@ -40,7 +40,7 @@
         </ul>
         <ul class="admin-links">
             <li class="link-title">Administration</li>
-            <li><a href="/admin/login.php">Admin Login<img src="/assets/icons/logo-black.svg" alt="Forest Haven Logo"></a></li>
+            <li><a href="admin/login.php">Admin Login<img src="assets/icons/logo-black.svg" alt="Forest Haven Logo"></a></li>
         </ul>
     </div>
     <div class="footer-bottom">
@@ -54,9 +54,9 @@
 </footer>
 
 
-<script src="/assets/js/script.js"></script>
+<script src="assets/js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="/assets/js/booking.js"></script>
+<script src="assets/js/booking.js"></script>
 
 </body>
 

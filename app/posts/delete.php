@@ -25,7 +25,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $database->commit();
 
         // Redirect user to dashboard and show a success message
-        header('Location: /admin/dashboard.php?success=2');
+        header('Location: ../../admin/dashboard.php?success=2');
         exit;
     } catch (PDOException $error) {
         $database->rollBack();

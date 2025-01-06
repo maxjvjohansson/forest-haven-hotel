@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to get unavailable dates for each room
     function getUnavailableDatesForRoom(roomId) {
-        return fetch('../app/get_bookings.php')
+        return fetch('app/get_bookings.php')
             .then(response => response.json())
             .then(bookingsData => {
                 // Filter booked dates based on room id

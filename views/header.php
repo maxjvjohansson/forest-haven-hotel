@@ -15,13 +15,13 @@ $stars = getHotelStars($database);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forest Haven Hotel</title>
 
-    <link rel="icon" href="/assets/icons/logo-black.svg">
+    <link rel="icon" href="assets/icons/logo-black.svg">
 
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/header.css">
-    <link rel="stylesheet" href="/assets/css/main-content.css">
-    <link rel="stylesheet" href="/assets/css/booking.css">
-    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/main-content.css">
+    <link rel="stylesheet" href="assets/css/booking.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 
@@ -30,7 +30,7 @@ $stars = getHotelStars($database);
     <header>
         <div class="menu-container">
             <a href="#" class="logo">
-                <img src="/assets/icons/logo-white.svg" alt="Forest Haven Logo" class="logo-img">
+                <img src="assets/icons/logo-white.svg" alt="Forest Haven Logo" class="logo-img">
                 <p>Forest Haven Hotel</p>
             </a>
             <nav>
@@ -53,12 +53,12 @@ $stars = getHotelStars($database);
 
         <section class="hero">
             <div class="hero-container">
-                <img src="/assets/images/hero-forest-haven-hotel.png">
+                <img src="assets/images/hero-forest-haven-hotel.png">
             </div>
 
             <div class="hotel-stars">
                 <?php for ($i = 0; $i < $stars; $i++): ?>
-                    <img src="/assets/icons/star.svg" alt="Star" class="star-icon">
+                    <img src="assets/icons/star.svg" alt="Star" class="star-icon">
                 <?php endfor; ?>
             </div>
 

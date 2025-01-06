@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../app/autoload.php';
-require_once __DIR__ . '/header.php'; ?>
+require_once __DIR__ . '/app/autoload.php';
+require_once __DIR__ . '/views/header.php'; ?>
 
 <main>
     <section class="our-rooms">
@@ -9,7 +9,7 @@ require_once __DIR__ . '/header.php'; ?>
         <div class="room-cards">
             <div class="room-card" id="room-1">
                 <h3>Woodland Retreat</h3>
-                <img src="/assets/images/room-woodland-retreat.png" alt="Overview of the budget room">
+                <img src="assets/images/room-woodland-retreat.png" alt="Overview of the budget room">
                 <ul>
                     <li>Surrounded by serene forest views for ultimate relaxation.</li>
                     <li>Private balcony with cozy seating for stargazing.</li>
@@ -18,7 +18,7 @@ require_once __DIR__ . '/header.php'; ?>
             </div>
             <div class="room-card" id="room-2">
                 <h3>Forest Haven</h3>
-                <img src="/assets/images/room-forest-haven.png" alt="Overview of the standard room">
+                <img src="assets/images/room-forest-haven.png" alt="Overview of the standard room">
                 <ul>
                     <li>A harmonious blend of comfort and style with forest-inspired decor.</li>
                     <li>Includes a spacious queen-sized bed and a cozy seating nook.</li>
@@ -27,7 +27,7 @@ require_once __DIR__ . '/header.php'; ?>
             </div>
             <div class="room-card" id="room-3">
                 <h3>Canopy Grand Suite</h3>
-                <img src="/assets/images/room-canopy-grand-suite.png" alt="Overview of the luxury room">
+                <img src="assets/images/room-canopy-grand-suite.png" alt="Overview of the luxury room">
                 <ul>
                     <li>Luxurious suite with high ceilings and panoramic forest views.</li>
                     <li>Includes a king-sized bed, lounge area, and private jacuzzi.</li>
@@ -38,7 +38,7 @@ require_once __DIR__ . '/header.php'; ?>
     </section>
 
     <?php
-    require_once __DIR__ . '/booking_form.php'; ?>
+    require_once __DIR__ . '/views/booking_form.php'; ?>
 
     <section class="our-features">
         <h2>Our features</h2>
@@ -46,7 +46,7 @@ require_once __DIR__ . '/header.php'; ?>
             <!-- Feature 1 -->
             <article class="feature">
                 <div class="feature-image">
-                    <img src="/assets/images/forest-haven-spa.png" alt="Picture of spa outside the hotel">
+                    <img src="assets/images/forest-haven-spa.png" alt="Picture of spa outside the hotel">
                 </div>
                 <div class="feature-text">
                     <h3>Find Your Bliss at Foresthaven Spa</h3>
@@ -63,14 +63,14 @@ require_once __DIR__ . '/header.php'; ?>
                     <p><span class="accent">Fuel. Delight. Explore.</span></p>
                 </div>
                 <div class="feature-image">
-                    <img src="/assets/images/forest-haven-breakfast.png" alt="Picture of the breakfast buffet at the restaurant of the hotel">
+                    <img src="assets/images/forest-haven-breakfast.png" alt="Picture of the breakfast buffet at the restaurant of the hotel">
                 </div>
             </article>
 
             <!-- Feature 3 -->
             <article class="feature">
                 <div class="feature-image">
-                    <img src="/assets/images/canopy-course.png" alt="Picture of the tree canopy adventure course">
+                    <img src="assets/images/canopy-course.png" alt="Picture of the tree canopy adventure course">
                 </div>
                 <div class="feature-text">
                     <h3>Elevate Your Stay with the Canopy Adventure</h3>
@@ -86,4 +86,4 @@ require_once __DIR__ . '/header.php'; ?>
 </main>
 
 <?php
-require_once __DIR__ . '/footer.php'; ?>
+require_once __DIR__ . '/views/footer.php'; ?>

@@ -11,18 +11,18 @@
 
 @font-face {
     font-family: "Aboreto";
-    src: url(/assets/fonts/Aboreto/Aboreto-Regular.ttf);
+    src: url("../fonts/Aboreto/Aboreto-Regular.ttf");
 }
 
 @font-face {
     font-family: "Afacad-Regular";
-    src: url(/assets/fonts/Afacad/Afacad-Regular.ttf);
+    src: url("../fonts/Afacad/Afacad-Regular.ttf");
     font-weight: 400;
 }
 
 @font-face {
     font-family: "Afacad-Semibold";
-    src: url(/assets/fonts/Afacad/Afacad-SemiBold.ttf);
+    src: url("../fonts/Afacad/Afacad-SemiBold.ttf");
     font-weight: 600;
 }
 

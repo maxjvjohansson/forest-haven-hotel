@@ -55,18 +55,36 @@ if (isset($_SESSION['error'])) {
 
 <body>
 
-    <h2 class="login-title">Forest Haven Hotel | Admin Login</h2>
+    <header>
+        <a href="#" class="logo">
+            <img src="/assets/icons/logo-white.svg" alt="Forest Haven Logo" class="logo-img">
+            <p>Forest Haven Hotel | Admin Login</p>
+        </a>
+    </header>
 
-    <form method="POST">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required><br>
+    <main>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required><br>
+        <div class="login-container">
+            <h1>Admin Login</h1>
+            <form method="POST">
+                <div class="input-group">
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" required>
+                </div>
 
-        <button type="submit">Log in</button>
-        <a href="/views/index.php" class="back-button">Back to Home</a>
-    </form>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" required>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit">Log in</button>
+                    <a href="/views/index.php" class="back-button">Back to Home</a>
+                </div>
+            </form>
+        </div>
+
+    </main>
 
 </body>
 

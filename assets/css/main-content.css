@@ -20,8 +20,9 @@ main {
 
 .room-card {
     width: 30%;
-    background-color: var(--beige-light);
     padding: 1.25rem;
+    background-color: var(--beige-light);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .room-card h3 {

@@ -9,7 +9,7 @@ main {
 
 .our-rooms h2 {
     font-family: var(--primary-font-regular);
-    font-size: 4rem;
+    font-size: 3rem;
 }
 
 .room-cards {
@@ -58,7 +58,7 @@ main {
 }
 
 .our-features h2 {
-    font-size: 4rem;
+    font-size: 3rem;
     margin-bottom: 3rem;
 }
 

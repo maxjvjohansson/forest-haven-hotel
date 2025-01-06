@@ -1,6 +1,6 @@
 header {
     width: 100%; 
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -62,7 +62,7 @@ nav {
 
 .hero {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -72,7 +72,7 @@ nav {
 
 .hero-container {
     width: 100%;
-    height: 100%;
+    height: 100vh;
 }
 
 .hero-container img {

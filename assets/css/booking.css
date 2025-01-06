@@ -1,6 +1,6 @@
 .booking-title {
     font-family: var(--primary-font-regular);
-    font-size: 4rem;
+    font-size: 3rem;
     padding: 0;
     margin-bottom: 3rem;
 }
@@ -21,17 +21,37 @@
     min-width: 50%;
 }
 
+.date-fields {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.date-fields > div {
+    flex: 1;
+}
+
+.guest-info {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.guest-info > div {
+    flex: 1;
+}
+
 #bookingForm input, #bookingForm select {
     display: block;
-    margin-bottom: 1.5rem;
-    padding: 1rem;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
     font-size: 1rem;
     border: 1px solid var(--black);
     border-radius: 0.25rem;
 }
 
 #bookingForm label {
-    font-size: 1.25rem;
+    font-size: 1rem;
 }
 
 #bookingForm select {
@@ -110,7 +130,7 @@ legend {
 }
 
 #transfer_code {
-    width: 24rem;
+    width: 100%;
 }
 
 .info-icon {
@@ -118,6 +138,7 @@ legend {
     position: relative;
     cursor: pointer;
     vertical-align: middle;
+    padding: 0;
 }
 
 .info-icon:hover {

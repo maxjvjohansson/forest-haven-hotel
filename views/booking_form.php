@@ -14,12 +14,17 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
 <section class="booking-container">
     <form id="bookingForm" method="POST" action="../../app/posts/store.php">
 
-        <!-- Dates -->
-        <label for="arrival_date">Arrival date:</label>
-        <input type="date" id="arrival_date" name="arrival_date" class="hidden-calendar" min="2025-01-01" max="2025-01-31" required>
-
-        <label for="departure_date">Departure date:</label>
-        <input type="date" id="departure_date" name="departure_date" class="hidden-calendar" min="2025-01-01" max="2025-01-31" required>
+        <!-- Select Dates -->
+        <div class="date-fields">
+            <div>
+                <label for="arrival_date">Arrival date:</label>
+                <input type="date" id="arrival_date" name="arrival_date" class="hidden-calendar" min="2025-01-01" max="2025-01-31" required>
+            </div>
+            <div>
+                <label for="departure_date">Departure date:</label>
+                <input type="date" id="departure_date" name="departure_date" class="hidden-calendar" min="2025-01-01" max="2025-01-31" required>
+            </div>
+        </div>
 
         <!-- Select Rooms -->
         <label for="room">Select room:</label>
@@ -54,13 +59,17 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </fieldset>
 
-        <!-- Guest Name -->
-        <label for="guest_name">Guest Name:</label>
-        <input type="text" id="guest_name" name="guest_name" required>
-
-        <!-- Transfer Code -->
-        <label for="transfer_code">Transfer Code:</label>
-        <input type="text" id="transfer_code" name="transfer_code" required>
+        <!-- Guest Name & Transfer Code -->
+        <div class="guest-info">
+            <div>
+                <label for="guest_name">Guest Name:</label>
+                <input type="text" id="guest_name" name="guest_name" required>
+            </div>
+            <div>
+                <label for="transfer_code">Transfer Code:</label>
+                <input type="text" id="transfer_code" name="transfer_code" required>
+            </div>
+        </div>
 
         <!-- Total Cost Display -->
         <p>Total: $<span id="totalCost">0</span></p>

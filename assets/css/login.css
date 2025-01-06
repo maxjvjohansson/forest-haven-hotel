@@ -57,8 +57,8 @@ main {
 
 .login-container {
     width: 30%;
+    margin-top: 10%;
     padding: 2rem;
-    margin-top: 16rem;
     background-color: rgba(var(--beige-light-rgb), 0.9);
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

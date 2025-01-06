@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // START SESSION IF NOT ALREADY STARTED
 if (session_status() == PHP_SESSION_NONE) {
     session_start();

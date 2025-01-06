@@ -13,7 +13,7 @@
     font-family: var(--primary-font-regular);
     border: 1px solid var(--black);
     padding: 1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 #bookingForm {
@@ -23,7 +23,7 @@
 
 #bookingForm input, #bookingForm select {
     display: block;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     padding: 1rem;
     font-size: 1rem;
     border: 1px solid var(--black);
@@ -41,7 +41,7 @@
 #bookingForm p {
     font-family: var(--primary-font-semibold);
     font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 #bookingForm button {
@@ -84,7 +84,7 @@
 }
 
 fieldset {
-    margin: 2rem 0;
+    margin: 1rem 0;
     padding: 1.5rem;
     border-radius: 0.5rem;
 }
@@ -93,7 +93,6 @@ fieldset label {
     display: flex;
     gap: 1.5rem;
     font-size: 1.25rem;
-    margin-bottom: 0.75rem;
 }
 
 fieldset input[type="checkbox"] {

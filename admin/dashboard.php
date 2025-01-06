@@ -51,95 +51,106 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 </head>
 
 <body>
+    <header>
+        <div class="menu-container">
+            <a href="#" class="logo">
+                <img src="/assets/icons/logo-white.svg" alt="Forest Haven Logo" class="logo-img">
+                <p>Forest Haven Hotel | Admin Dashboard</p>
+            </a>
+        </div>
+        <a href="logout.php" class="logout-button">Logout</a>
+    </header>
 
-    <form id="adminDashboard" method="POST" action="../../app/posts/update.php">
-        <h2>Forest Haven Hotel | Admin Dashboard</h2>
+    <main>
+        <form id="adminDashboard" method="POST" action="../../app/posts/update.php">
+            <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
+                <p class="success-message">Updates saved successfully!</p>
+            <?php endif; ?>
 
-        <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
-            <p style="color: green;">Updates saved successfully!</p>
+            <!-- Update Room Prices -->
+            <fieldset>
+                <legend>Update Room Prices</legend>
+                <?php foreach ($rooms as $room): ?>
+                    <div class="form-group">
+                        <label for="room_price_<?= $room['id'] ?>">
+                            <?= htmlspecialchars($room['name']) ?> - Current Price: $<?= $room['price'] ?>
+                        </label>
+                        <input type="number" id="room_price_<?= $room['id'] ?>" name="room_prices[<?= $room['id'] ?>]" value="<?= $room['price'] ?>" required>
+                    </div>
+                <?php endforeach; ?>
+            </fieldset>
+
+            <!-- Update Feature Prices -->
+            <fieldset>
+                <legend>Update Feature Prices</legend>
+                <?php foreach ($features as $feature): ?>
+                    <div class="form-group">
+                        <label for="feature_price_<?= $feature['id'] ?>">
+                            <?= htmlspecialchars($feature['name']) ?> - Current Price: $<?= $feature['price'] ?>
+                        </label>
+                        <input type="number" id="feature_price_<?= $feature['id'] ?>" name="feature_prices[<?= $feature['id'] ?>]" value="<?= $feature['price'] ?>" required>
+                    </div>
+                <?php endforeach; ?>
+            </fieldset>
+
+            <!-- Update Hotel Stars -->
+            <fieldset>
+                <legend>Update Hotel Stars</legend>
+                <div class="form-group">
+                    <label for="hotel_stars">Current Stars: <?= $hotelStars ?> ★</label>
+                    <input type="number" id="hotel_stars" name="hotel_stars" value="<?= $hotelStars ?>" min="1" max="5" required>
+                </div>
+            </fieldset>
+
+            <!-- Confirm/Submit -->
+            <button type="submit" class="form-button">Update</button>
+        </form>
+
+        <!-- Searchform -->
+        <form action="dashboard.php" method="GET" class="search-form">
+            <label for="search">Search Booking (Guest Name or Room):</label>
+            <input type="text" id="search" name="search" value="<?= $searchQuery ?>" placeholder="Enter guest name or room">
+            <button type="submit" class="form-button">Search</button>
+        </form>
+
+        <h3>Manage Bookings</h3>
+
+        <!-- Searchresults -->
+        <?php if (count($bookings) > 0): ?>
+            <table class="bookings-table">
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Guest Name</th>
+                        <th>Room</th>
+                        <th>Arrival Date</th>
+                        <th>Departure Date</th>
+                        <th>Total Cost</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($bookings as $booking): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($booking['id'], ENT_QUOTES, 'UTF-8') ?></td>
+                            <td><?= htmlspecialchars($booking['guest_name'], ENT_QUOTES, 'UTF-8') ?></td>
+                            <td><?= htmlspecialchars($booking['room_name'], ENT_QUOTES, 'UTF-8') ?></td>
+                            <td><?= htmlspecialchars($booking['arrival_date'], ENT_QUOTES, 'UTF-8') ?></td>
+                            <td><?= htmlspecialchars($booking['departure_date'], ENT_QUOTES, 'UTF-8') ?></td>
+                            <td>$<?= htmlspecialchars($booking['total_cost'], ENT_QUOTES, 'UTF-8') ?></td>
+                            <td>
+                                <a href="/app/posts/delete.php?id=<?= $booking['id'] ?>" class="delete-link" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p class="no-results">No bookings found matching your search criteria.</p>
         <?php endif; ?>
 
-        <!-- Update Room Prices -->
-        <fieldset>
-            <legend>Update Room Prices</legend>
-            <?php foreach ($rooms as $room): ?>
-                <label for="room_price_<?= $room['id'] ?>">
-                    <?= htmlspecialchars($room['name']) ?> - Current Price: $<?= $room['price'] ?>
-                </label>
-                <input type="number" id="room_price_<?= $room['id'] ?>" name="room_prices[<?= $room['id'] ?>]" value="<?= $room['price'] ?>" required><br>
-            <?php endforeach; ?>
-        </fieldset>
-
-        <!-- Update Feature Prices -->
-        <fieldset>
-            <legend>Update Feature Prices</legend>
-            <?php foreach ($features as $feature): ?>
-                <label for="feature_price_<?= $feature['id'] ?>">
-                    <?= htmlspecialchars($feature['name']) ?> - Current Price: $<?= $feature['price'] ?>
-                </label>
-                <input type="number" id="feature_price_<?= $feature['id'] ?>" name="feature_prices[<?= $feature['id'] ?>]" value="<?= $feature['price'] ?>" required><br>
-            <?php endforeach; ?>
-        </fieldset>
-
-        <!-- Update Hotel Stars -->
-        <fieldset>
-            <legend>Update Hotel Stars</legend>
-            <label for="hotel_stars">Current Stars: <?= $hotelStars ?> ★</label>
-            <input type="number" id="hotel_stars" name="hotel_stars" value="<?= $hotelStars ?>" min="1" max="5" required>
-        </fieldset>
-
-        <!-- Confirm/Submit -->
-        <button type="submit">Update</button>
-
-    </form>
-
-    <!-- Searchform -->
-    <form action="dashboard.php" method="GET">
-        <label for="search">Search Booking (Guest Name or Room):</label>
-        <input type="text" id="search" name="search" value="<?= $searchQuery ?>" placeholder="Enter guest name or room">
-        <button type="submit">Search</button>
-    </form>
-
-    <h3>Manage Bookings</h3>
-
-    <!-- Searchresults -->
-    <?php if (count($bookings) > 0): ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>Booking ID</th>
-                    <th>Guest Name</th>
-                    <th>Room</th>
-                    <th>Arrival Date</th>
-                    <th>Departure Date</th>
-                    <th>Total Cost</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($bookings as $booking): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($booking['id'], ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($booking['guest_name'], ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($booking['room_name'], ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($booking['arrival_date'], ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($booking['departure_date'], ENT_QUOTES, 'UTF-8') ?></td>
-                        <td>$<?= htmlspecialchars($booking['total_cost'], ENT_QUOTES, 'UTF-8') ?></td>
-                        <td>
-                            <!-- Delete booking -->
-                            <a href="/app/posts/delete.php?id=<?= $booking['id'] ?>" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>No bookings found matching your search criteria.</p>
-    <?php endif; ?>
-
-    <!-- Logout -->
-    <a href="logout.php" class="logout-button">Logout</a>
-
+    </main>
 </body>
+
 
 </html>

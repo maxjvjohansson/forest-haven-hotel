@@ -48,7 +48,7 @@ if (isset($_SESSION['error'])) {
     <title>Forest Haven | Admin Login</title>
 
     <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="stylesheet" href="/assets/css/login.css">
 </head>
 
 <body>

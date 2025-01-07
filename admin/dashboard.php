@@ -117,6 +117,9 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 
         <!-- Searchform -->
         <form action="dashboard.php" method="GET" class="search-form">
+            <?php if (isset($_GET['success']) && $_GET['success'] == 2): ?>
+                <p class="success-message">Booking deleted successfully!</p>
+            <?php endif; ?>
             <label for="search">Search Booking (Guest Name or Room):</label>
             <input type="text" id="search" name="search" value="<?= $searchQuery ?>" placeholder="Enter guest name or room">
             <button type="submit" class="form-button">Search</button>
@@ -148,7 +151,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
                             <td><?= htmlspecialchars($booking['departure_date'], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>$<?= htmlspecialchars($booking['total_cost'], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
-                                <a href="app/posts/delete.php?id=<?= $booking['id'] ?>" class="delete-link" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
+                                <a href="../app/posts/delete.php?id=<?= $booking['id'] ?>" class="delete-link" onclick="return confirm('Are you sure you want to delete this booking?');">Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

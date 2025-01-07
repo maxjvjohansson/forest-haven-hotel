@@ -1,9 +1,12 @@
 :root {
     --black: #1E1E1E;
     --white: #FFFFFF;
+    --grey: #CCCCCC;
     --beige-dark: #A9A084;
     --beige-light: #F7F7EF;
     --beige-light-rgb: 239, 234, 230;
+    --red: #B74E4E;
+    --green: #55B74E;
     --primary-font-regular: "Afacad-Regular";
     --primary-font-semibold: "Afacad-Semibold";
     --secondary-font: "Aboreto";

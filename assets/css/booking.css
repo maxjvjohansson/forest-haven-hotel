@@ -90,7 +90,7 @@
 
 /* Flatpickr calendar styling */
 .flatpickr-disabled {
-    background-color: #B74E4E!important;
+    background-color: var(--red)!important;
     color: var(--white) !important; 
 }
 
@@ -150,12 +150,12 @@ legend {
     position: absolute;
     display: none;
     background-color: var(--white);
-    border: 1px solid #ccc;
+    border: 1px solid var(--grey);
     padding: 1rem;
     border-radius: 0.5rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     font-size: 1rem;
-    color: #333;
+    color: var(--black);
     z-index: 1000;
 }
 

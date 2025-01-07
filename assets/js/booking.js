@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 minDate: "2025-01-01",
                 maxDate: "2025-01-31",
                 weekNumbers: true, // Add number of week to the calendar
+                locale: { firstDayOfWeek: 1 }, // Set Monday as the first day of the week
                 disable: unavailableDates,
                 onChange: () => {
                     syncDepartureMinDate();
@@ -78,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 minDate: "2025-01-01",
                 maxDate: "2025-01-31",
                 weekNumbers: true, // Add number of week to the calendars
+                locale: { firstDayOfWeek: 1 }, // Set Monday as the first day of the week
                 disable: unavailableDates, 
                 onChange: updateTotal
             });

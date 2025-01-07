@@ -124,17 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]
         ];
 
-        // Clear form data after successful booking
-        $_SESSION['form_data'] = [
-            'room' => $_POST['room'],
-            'arrival_date' => $_POST['arrival_date'],
-            'departure_date' => $_POST['departure_date'],
-            'guest_name' => $_POST['guest_name'],
-            'transfer_code' => $_POST['transfer_code'],
-        ];
-
-        // Send response and clear POST
-        $_POST = [];
+        // Send response as JSON
         header('Content-Type: application/json');
         echo json_encode($response);
 

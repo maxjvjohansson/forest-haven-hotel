@@ -28,6 +28,7 @@ footer {
 }
 
 .footer-links a {
+    color: var(--black);
     text-decoration: none;
 }
 
@@ -60,6 +61,7 @@ footer {
 }
 
 .footer-bottom a {
+    color: var(--black);
     text-decoration: none;
 }
 
@@ -70,4 +72,5 @@ footer {
 .footer-links a:visited,
 .footer-bottom a:visited {
     color: var(--black);
+    text-decoration: none;
 }

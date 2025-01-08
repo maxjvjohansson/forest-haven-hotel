@@ -124,11 +124,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]
         ];
 
-        // Send response as JSON
+        // Skicka JSON-respons
         header('Content-Type: application/json');
-        echo json_encode($response);
-
-        header('Location: ../../index.php');
+        echo json_encode($response, JSON_PRETTY_PRINT);
         exit;
     }
 } else {

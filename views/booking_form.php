@@ -117,7 +117,7 @@ $discountFeature = $discountSettings['discount_feature_name'];
     <section class="room-preview">
         <div class="room-card" id="room-1">
             <h3>Woodland Retreat</h3>
-            <img src="assets/images/room-woodland-retreat.png" alt="Overview of the budget room">
+            <img src="assets/images/room-woodland-retreat.webp" alt="Overview of the budget room">
             <ul>
                 <li>Surrounded by serene forest views for ultimate relaxation.</li>
                 <li>Private balcony with cozy seating for stargazing.</li>
@@ -126,7 +126,7 @@ $discountFeature = $discountSettings['discount_feature_name'];
         </div>
         <div class="room-card hidden" id="room-2">
             <h3>Forest Haven</h3>
-            <img src="assets/images/room-forest-haven.png" alt="Overview of the standard room">
+            <img src="assets/images/room-forest-haven.webp" alt="Overview of the standard room">
             <ul>
                 <li>A harmonious blend of comfort and style with forest-inspired decor.</li>
                 <li>Includes a spacious queen-sized bed and a cozy seating nook.</li>
@@ -135,7 +135,7 @@ $discountFeature = $discountSettings['discount_feature_name'];
         </div>
         <div class="room-card hidden" id="room-3">
             <h3>Canopy Grand Suite</h3>
-            <img src="assets/images/room-canopy-grand-suite.png" alt="Overview of the luxury room">
+            <img src="assets/images/room-canopy-grand-suite.webp" alt="Overview of the luxury room">
             <ul>
                 <li>Luxurious suite with high ceilings and panoramic forest views.</li>
                 <li>Includes a king-sized bed, lounge area, and private jacuzzi.</li>

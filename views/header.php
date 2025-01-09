@@ -53,7 +53,7 @@ $stars = getHotelStars($database);
 
         <section class="hero">
             <div class="hero-container">
-                <img src="assets/images/hero-forest-haven-hotel.png">
+                <img src="assets/images/hero-forest-haven-hotel.webp">
             </div>
 
             <div class="hotel-stars">

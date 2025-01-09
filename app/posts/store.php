@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ], $selectedFeatures),
             "additional_info" => [
                 "greeting" => "Thank you for choosing Forest Haven Hotel",
-                "imageUrl" => "https://maxjvjohansson.se/foresthavenhotel/assets/images/forest-haven-greeting.png"
+                "imageUrl" => "https://maxjvjohansson.se/foresthavenhotel/assets/images/forest-haven-greeting.webp"
             ]
         ];
 

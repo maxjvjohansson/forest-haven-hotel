@@ -144,14 +144,13 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
                 <div class="form-group">
                     <label>Rooms Eligible for Discount:</label>
                     <?php foreach ($rooms as $room): ?>
-                        <div>
+                        <div class="room-checkbox">
                             <input type="checkbox" id="room_<?= $room['id'] ?>"
                                 name="discount_rooms[]"
                                 value="<?= htmlspecialchars($room['name']) ?>"
                                 <?php
                                 // Check if room is active
                                 $isActive = false;
-                                // Check if room exists in the table
                                 foreach ($currentDiscountRooms as $discountRoom) {
                                     if ($discountRoom['room_name'] === $room['name'] && $discountRoom['is_active'] == 1) {
                                         $isActive = true;
@@ -159,7 +158,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
                                     }
                                 }
                                 if ($isActive) {
-                                    echo 'checked'; // Mark room as checked if true
+                                    echo 'checked';
                                 }
                                 ?>>
                             <label for="room_<?= $room['id'] ?>"><?= htmlspecialchars($room['name']) ?></label>

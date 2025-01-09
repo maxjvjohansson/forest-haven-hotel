@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // If all went well, create and return response/reciept as JSON
-        $response = [
+        $_SESSION['receipt'] = [
             "island" => "Lindenwood Isle",
             "hotel" => "Forest Haven Hotel",
             "arrival_date" => $arrivalDate,
@@ -162,9 +162,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]
         ];
 
-        header('Content-Type: application/json');
-        echo json_encode($response, JSON_PRETTY_PRINT);
+        $_SESSION['booking_data'] = [
+            'room' => $room,
+            'arrival_date' => $arrivalDate,
+            'departure_date' => $departureDate,
+            'guest_name' => $guestName,
+            'transfer_code' => $transferCode,
+            'features' => $selectedFeatures
+        ];
 
+        header('Location: ../../views/receipt.php');
         exit;
     }
 } else {

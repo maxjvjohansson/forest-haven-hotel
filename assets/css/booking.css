@@ -179,6 +179,10 @@ legend {
     padding-left: 1rem;
 }
 
+.highlight {
+    font-family: var(--primary-font-semibold);
+}
+
 .info-icon {
     display: inline-block;
     position: relative;

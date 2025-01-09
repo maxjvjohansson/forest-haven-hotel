@@ -85,8 +85,8 @@ $discountFeature = $discountSettings['discount_feature_name'];
                             <li><?= htmlspecialchars($roomName) ?></li>
                         <?php endforeach; ?>
                     </ul>
-                    <p>Stay at least <?= $minDaysForDiscount ?> days to qualify.</p>
-                    <p>Discount includes: <?= htmlspecialchars($discountFeature) ?></p>
+                    <p>Stay at least <span class="highlight"><?= htmlspecialchars($minDaysForDiscount) ?></span> days to qualify.</p>
+                    <p>Discount includes: <span class="highlight"><?= htmlspecialchars($discountFeature) ?></span></p>
                 </div>
             </div>
         </div>

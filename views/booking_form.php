@@ -22,7 +22,7 @@ $minDaysForDiscount = $discountSettings['discount_min_days'];
 $discountFeature = $discountSettings['discount_feature_name'];
 ?>
 
-<h2 class="booking-title" id="bookingTitle">Make a reservation</h2>
+<h2 class="booking-title" id="bookingTitle">Make A Reservation</h2>
 
 <section class="booking-container">
     <form id="bookingForm" method="POST" action="/foresthavenhotel/app/posts/store.php">
@@ -30,17 +30,17 @@ $discountFeature = $discountSettings['discount_feature_name'];
         <!-- Select Dates -->
         <div class="date-fields">
             <div>
-                <label for="arrival_date">Arrival date:</label>
+                <label for="arrival_date">Arrival Date:</label>
                 <input type="date" id="arrival_date" name="arrival_date" class="hidden-calendar" min="2025-01-01" max="2025-01-31" required>
             </div>
             <div>
-                <label for="departure_date">Departure date:</label>
+                <label for="departure_date">Departure Date:</label>
                 <input type="date" id="departure_date" name="departure_date" class="hidden-calendar" min="2025-01-01" max="2025-01-31" required>
             </div>
         </div>
 
         <!-- Select Rooms -->
-        <label for="room">Select room:</label>
+        <label for="room">Select Room:</label>
         <select id="room" name="room" required>
             <?php foreach ($rooms as $room): ?>
                 <option value="<?= $room['id'] ?>" data-price="<?= $room['price'] ?>">
@@ -58,7 +58,7 @@ $discountFeature = $discountSettings['discount_feature_name'];
         <!-- Add features -->
         <div class="form-container">
             <fieldset>
-                <legend>Add features:</legend>
+                <legend>Add Features:</legend>
                 <?php foreach ($features as $feature): ?>
                     <label>
                         <input type="checkbox" name="features[]" value="<?= $feature['id'] ?>" data-price="<?= $feature['price'] ?>">

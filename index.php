@@ -41,7 +41,7 @@ require_once __DIR__ . '/views/header.php'; ?>
     require_once __DIR__ . '/views/booking_form.php'; ?>
 
     <section class="our-features">
-        <h2>Our features</h2>
+        <h2>Our Features</h2>
         <div class="features">
             <!-- Feature 1 -->
             <article class="feature">
@@ -49,7 +49,7 @@ require_once __DIR__ . '/views/header.php'; ?>
                     <img src="assets/images/forest-haven-spa.webp" alt="Picture of spa outside the hotel">
                 </div>
                 <div class="feature-text">
-                    <h3>Find Your Bliss at Foresthaven Spa</h3>
+                    <h3>Find Your Bliss At Foresthaven Spa</h3>
                     <p>Rejuvenate in our tranquil spa, surrounded by nature's beauty. Indulge in organic treatments, soothing massages, and serene hot springs for the ultimate escape.</p>
                     <p><span class="accent">Relax. Refresh. Reconnect.</span></p>
                 </div>
@@ -58,7 +58,7 @@ require_once __DIR__ . '/views/header.php'; ?>
             <!-- Feature 2 -->
             <article class="feature reverse">
                 <div class="feature-text">
-                    <h3>Savor the Forest at our Breakfast Buffet</h3>
+                    <h3>Savor The Forest At Our Breakfast Buffet</h3>
                     <p>Start your day with a feast inspired by nature. Enjoy fresh, locally-sourced ingredients, hearty baked goods, and vibrant seasonal fruits in a serene, forest-themed setting.</p>
                     <p><span class="accent">Fuel. Delight. Explore.</span></p>
                 </div>
@@ -73,7 +73,7 @@ require_once __DIR__ . '/views/header.php'; ?>
                     <img src="assets/images/canopy-course.webp" alt="Picture of the tree canopy adventure course">
                 </div>
                 <div class="feature-text">
-                    <h3>Elevate Your Stay with the Canopy Adventure</h3>
+                    <h3>Elevate Your Stay With The Canopy Adventure</h3>
                     <p>Experience the thrill of exploring treetops on our breathtaking canopy course. Glide through zip lines, navigate rope bridges, and take in stunning views of Lindenwood Isle's lush forests.</p>
                     <p><span class="accent">Climb. Soar. Discover.</span></p>
                 </div>

@@ -5,30 +5,95 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalCostDisplay = document.getElementById('totalCost');
     const totalCostInput = document.getElementById('total_cost');
 
-    // Function to update totalcost of a booking
+    // Store discount information globally
+    let discountInfo = null;
+
+    // Helper function to normalize strings for comparison
+    function normalizeString(str) {
+        return str.trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    // Helper function to extract room name from option text
+    function getRoomNameFromOption(optionElement) {
+        // The format is "Room Name - $price"
+        return optionElement.textContent.split('-')[0].trim();
+    }
+
+    // Helper function to get feature name from checkbox label
+    function getFeatureNameFromCheckbox(checkbox) {
+        const label = checkbox.closest('label');
+        if (label) {
+            // The format is "Feature Name - $price"
+            // Get everything before the last occurrence of " - $"
+            const lastDashIndex = label.textContent.lastIndexOf(' - $');
+            if (lastDashIndex !== -1) {
+                return label.textContent.substring(0, lastDashIndex).trim();
+            }
+        }
+        return '';
+    }
+
+    // Fetch discount information on page load
+    async function fetchDiscountInfo() {
+        try {
+            const response = await fetch('app/get_discount_info.php');
+            discountInfo = await response.json();
+        } catch (error) {
+            console.error('Error fetching discount info:', error);
+        }
+    }
+
+    // Check if discount should be applied based on conditions
+    function shouldApplyDiscount(numberOfDays, selectedRoomName) {
+        if (!discountInfo) return false;
+
+        const meetsMinDays = numberOfDays >= discountInfo.min_days_for_discount;
+        const normalizedRoomName = normalizeString(selectedRoomName);
+        const isEligibleRoom = discountInfo.discount_rooms.some(room => 
+            normalizeString(room) === normalizedRoomName
+        );
+        return meetsMinDays && isEligibleRoom;
+    }
+
+    // Function to update total cost of booking including discount logic
     function updateTotal() {
         let totalCost = 0;
 
-        // Get correct price from room
-        const roomPrice = parseInt(roomSelect.options[roomSelect.selectedIndex].getAttribute('data-price')) || 0;
+        // Get room price and name
+        const selectedOption = roomSelect.options[roomSelect.selectedIndex];
+        const roomPrice = parseInt(selectedOption.getAttribute('data-price')) || 0;
+        const selectedRoomName = getRoomNameFromOption(selectedOption);
 
-        // Make sure flatpickr is initiated before proceeding
+        // Calculate number of days
         const arrivalDate = arrivalInput._flatpickr ? arrivalInput._flatpickr.selectedDates[0] : null;
         const departureDate = departureInput._flatpickr ? departureInput._flatpickr.selectedDates[0] : null;
 
+        let numberOfDays = 0;
         if (arrivalDate && departureDate) {
             const timeDifference = departureDate - arrivalDate;
-            const numberOfDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) + 1;
+            numberOfDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) + 1;
             totalCost += roomPrice * numberOfDays;
         }
 
-        // Add fixed feature price for each booking
+        // Handle features and discounts
         const featureCheckboxes = document.querySelectorAll('input[name="features[]"]:checked');
         featureCheckboxes.forEach(checkbox => {
-            totalCost += parseInt(checkbox.getAttribute('data-price')) || 0;
+            const featureName = getFeatureNameFromCheckbox(checkbox);
+            const featurePrice = parseInt(checkbox.getAttribute('data-price')) || 0;
+            
+            const shouldDiscount = shouldApplyDiscount(numberOfDays, selectedRoomName);
+            const isDiscountFeature = normalizeString(featureName) === 
+                                    normalizeString(discountInfo?.discount_feature || '');
+
+            // Check if this feature should be free according to discount rules
+            if (shouldDiscount && isDiscountFeature) {
+                // Feature is free - don't add the price
+            } else {
+                totalCost += featurePrice;
+            }
         });
 
-        // Update totalcost in DOM and serverside
+        // Update total cost in DOM and server-side
         totalCostDisplay.textContent = totalCost;
         totalCostInput.value = totalCost;
     }
@@ -58,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const roomId = roomSelect.value;
         
         getUnavailableDatesForRoom(roomId).then(unavailableDates => {
-            // Initiate flatpickr calendar and disable already booked dates for each room
+            // Initialize flatpickr calendar and disable already booked dates for each room
             const arrivalCalendar = flatpickr(arrivalInput, {
                 dateFormat: "Y-m-d",
                 onReady: () => arrivalInput.classList.remove('hidden-calendar'),
@@ -86,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Function to check that arrival date needs to be set before departure date
+    // Function to ensure arrival date is set before departure date
     function syncDepartureMinDate() {
         const selectedArrival = arrivalInput._flatpickr.selectedDates[0];
         if (selectedArrival) {
@@ -94,21 +159,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Event listeners
     roomSelect.addEventListener('change', () => {
         updateCalendar();  // Update calendar when room changes
-        updateTotal();  // Update totalcost on room change
+        updateTotal();     // Update total cost on room change
     });
 
     const featureCheckboxes = document.querySelectorAll('input[name="features[]"]');
     featureCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', updateTotal);  // Update totalcost if features are added
+        checkbox.addEventListener('change', updateTotal);  // Update total cost if features are added
     });
 
-    // Initiate calendar on refresh
+    // Initialize everything
+    fetchDiscountInfo().then(() => {
     updateCalendar();
-
-    // Update totalcost on refresh
     updateTotal();
+    });
 });
 
 // Function to update the room preview based on selected option

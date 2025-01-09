@@ -7,6 +7,19 @@ $rooms = $query->fetchAll(PDO::FETCH_ASSOC);
 // Get feature prices from database
 $query = $database->query("SELECT id, name, price FROM features");
 $features = $query->fetchAll(PDO::FETCH_ASSOC);
+
+// Get discount settings from database
+$query = $database->query("SELECT discount_min_days, discount_feature_name FROM admin_settings LIMIT 1");
+$discountSettings = $query->fetch(PDO::FETCH_ASSOC);
+
+// Get rooms that are valid for discount
+$query = $database->prepare("SELECT room_name FROM discount_rooms WHERE admin_setting_id = 1 AND is_active = 1");
+$query->execute();
+$activeDiscountRooms = $query->fetchAll(PDO::FETCH_COLUMN);
+
+// Variables for discounts
+$minDaysForDiscount = $discountSettings['discount_min_days'];
+$discountFeature = $discountSettings['discount_feature_name'];
 ?>
 
 <h2 class="booking-title" id="bookingTitle">Make a reservation</h2>
@@ -43,21 +56,40 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
         <!-- Add features -->
-        <fieldset>
-            <legend>Add features:</legend>
-            <?php foreach ($features as $feature): ?>
-                <label>
-                    <input type="checkbox" name="features[]" value="<?= $feature['id'] ?>" data-price="<?= $feature['price'] ?>">
-                    <?= htmlspecialchars($feature['name']) ?> - $<?= $feature['price'] ?>
-                </label><br>
-            <?php endforeach; ?>
-            <span class="info-icon" id="featureInfoIcon">
-                <img src="assets/icons/info.svg" alt="Info" class="icon">
-            </span>
-            <div class="info-popup" id="featureInfoPopup">
-                Feature prices are for the entire booking period.
+        <div class="form-container">
+            <fieldset>
+                <legend>Add features:</legend>
+                <?php foreach ($features as $feature): ?>
+                    <label>
+                        <input type="checkbox" name="features[]" value="<?= $feature['id'] ?>" data-price="<?= $feature['price'] ?>">
+                        <?= htmlspecialchars($feature['name']) ?> - $<?= $feature['price'] ?>
+                    </label><br>
+                <?php endforeach; ?>
+                <span class="info-icon" id="featureInfoIcon">
+                    <img src="assets/icons/info.svg" alt="Info" class="icon">
+                </span>
+                <div class="info-popup" id="featureInfoPopup">
+                    Feature prices are for the entire booking period.
+                </div>
+            </fieldset>
+
+            <!-- Discount card -->
+            <div class="discount-card">
+                <div class="discount-header">
+                    <h3>Discount Offer!</h3>
+                </div>
+                <div class="discount-body">
+                    <p>Book one of the following rooms:</p>
+                    <ul>
+                        <?php foreach ($activeDiscountRooms as $roomName): ?>
+                            <li><?= htmlspecialchars($roomName) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <p>Stay at least <?= $minDaysForDiscount ?> days to qualify.</p>
+                    <p>Discount includes: <?= htmlspecialchars($discountFeature) ?></p>
+                </div>
             </div>
-        </fieldset>
+        </div>
 
         <!-- Guest Name & Transfer Code -->
         <div class="guest-info">

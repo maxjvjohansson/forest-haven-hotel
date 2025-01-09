@@ -21,6 +21,16 @@ $features = $query->fetchAll(PDO::FETCH_ASSOC);
 // Get stars from admin settings
 $hotelStars = getHotelStars($database);
 
+// Get current discount settings
+$query = $database->query("SELECT discount_feature_name, discount_min_days FROM admin_settings LIMIT 1");
+$discountSettings = $query->fetch(PDO::FETCH_ASSOC);
+$currentDiscountFeature = $discountSettings['discount_feature_name'] ?? '';
+$currentMinDays = $discountSettings['discount_min_days'] ?? 3; // Default to 3 if not set
+
+$query = $database->prepare("SELECT room_name, is_active FROM discount_rooms WHERE admin_setting_id = 1");
+$query->execute();
+$currentDiscountRooms = $query->fetchAll(PDO::FETCH_ASSOC);
+
 // List all bookings if no searchfilter is used
 $bookings = [];
 $searchQuery = '';
@@ -108,6 +118,53 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
                 <div class="form-group">
                     <label for="hotel_stars">Current Stars: <?= $hotelStars ?> ★</label>
                     <input type="number" id="hotel_stars" name="hotel_stars" value="<?= $hotelStars ?>" min="1" max="5" required>
+                </div>
+            </fieldset>
+
+            <!-- Update Discount Settings -->
+            <fieldset>
+                <legend>Discount Settings</legend>
+                <div class="form-group">
+                    <label for="discount_min_days">Minimum Days for Discount: <strong><?= $currentMinDays ?></strong></label>
+                    <input type="number" id="discount_min_days" name="discount_min_days" value="<?= $currentMinDays ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="discount_feature_name">Discount Feature:</label>
+                    <select id="discount_feature_name" name="discount_feature_name" required>
+                        <?php foreach ($features as $feature): ?>
+                            <option value="<?= htmlspecialchars($feature['name']) ?>"
+                                <?= $feature['name'] === $currentDiscountFeature ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($feature['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Rooms Eligible for Discount:</label>
+                    <?php foreach ($rooms as $room): ?>
+                        <div>
+                            <input type="checkbox" id="room_<?= $room['id'] ?>"
+                                name="discount_rooms[]"
+                                value="<?= htmlspecialchars($room['name']) ?>"
+                                <?php
+                                // Check if room is active
+                                $isActive = false;
+                                // Check if room exists in the table
+                                foreach ($currentDiscountRooms as $discountRoom) {
+                                    if ($discountRoom['room_name'] === $room['name'] && $discountRoom['is_active'] == 1) {
+                                        $isActive = true;
+                                        break;
+                                    }
+                                }
+                                if ($isActive) {
+                                    echo 'checked'; // Mark room as checked if true
+                                }
+                                ?>>
+                            <label for="room_<?= $room['id'] ?>"><?= htmlspecialchars($room['name']) ?></label>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </fieldset>
 

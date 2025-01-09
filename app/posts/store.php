@@ -15,6 +15,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $transferCode = htmlspecialchars(trim($_POST['transfer_code']));
         $features = $_POST['features'] ?? [];
 
+        // Get discount settings from database
+        $discountQuery = $database->query("SELECT discount_min_days, discount_feature_name FROM admin_settings LIMIT 1");
+        $discountSettings = $discountQuery->fetch(PDO::FETCH_ASSOC);
+
+        $activeRoomsQuery = $database->prepare("
+            SELECT room_name 
+            FROM discount_rooms 
+            WHERE admin_setting_id = 1 AND is_active = 1
+        ");
+        $activeRoomsQuery->execute();
+        $activeDiscountRooms = $activeRoomsQuery->fetchAll(PDO::FETCH_COLUMN);
+
+        $minDaysForDiscount = $discountSettings['discount_min_days'];
+        $discountFeature = $discountSettings['discount_feature_name'];
+
         // Validate required fields
         if (empty($room) || empty($arrivalDate) || empty($departureDate) || empty($guestName) || empty($transferCode)) {
             header('Content-Type: application/json');
@@ -29,31 +44,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Get price from room
-        $roomQuery = $database->prepare("SELECT price FROM rooms WHERE id = :room_id");
+        // Get prices from selected room
+        $roomQuery = $database->prepare("SELECT price, name FROM rooms WHERE id = :room_id");
         $roomQuery->bindParam(':room_id', $room, PDO::PARAM_INT);
         $roomQuery->execute();
-        $roomPrice = $roomQuery->fetchColumn();
+        $roomData = $roomQuery->fetch(PDO::FETCH_ASSOC);
+        $roomPrice = $roomData['price'];
+        $roomName = $roomData['name'];
 
-        // Get actual number of stars for the hotel
-        $stars = getHotelStars($database);
+        // Validate that the room is granted for discount
+        $isEligibleRoom = in_array($roomName, $activeDiscountRooms);
 
-        // Sanitized features/function to check if feature is valid and get price from features
+        // Validate features and get actual feature price
         $cleanFeatures = validateFeatures($database, $features);
         $featureQuery = $database->prepare("
-        SELECT id, name, price 
-        FROM features 
-        WHERE id IN (" . implode(',', array_fill(0, count($cleanFeatures), '?')) . ")
-    ");
+            SELECT id, name, price 
+            FROM features 
+            WHERE id IN (" . implode(',', array_fill(0, count($cleanFeatures), '?')) . ")
+        ");
         $featureQuery->execute($cleanFeatures);
         $selectedFeatures = $featureQuery->fetchAll(PDO::FETCH_ASSOC);
 
-        // Calculate the total cost of selected features
-        $totalFeatureCost = array_reduce($selectedFeatures, fn($sum, $feature) => $sum + $feature['price'], 0);
-
-        // Calculate total cost of the booking
+        // Count number of days per booking
         $numberOfDays = calculateDays($arrivalDate, $departureDate);
-        $totalCost = ($roomPrice * $numberOfDays) + $totalFeatureCost;
+
+        // Calculate total cost
+        $totalCost = $roomPrice * $numberOfDays;
+
+        // Apply discount if conditions is true
+        $totalFeatureCost = 0;
+        foreach ($selectedFeatures as $feature) {
+            if (
+                $numberOfDays >= $minDaysForDiscount &&
+                $isEligibleRoom &&
+                strcasecmp($feature['name'], $discountFeature) === 0
+            ) {
+                continue;
+            }
+            $totalFeatureCost += $feature['price'];
+        }
+
+        $totalCost += $totalFeatureCost;
 
         // Check if a room is available at selected dates
         if (!isRoomAvailable($database, $room, $arrivalDate, $departureDate)) {
@@ -69,18 +100,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Make a deposit through external API
+        // Make deposit via centralbank endpoint
         if (!makeDeposit($transferCode)) {
             header('Content-Type: application/json');
             echo json_encode(["error" => "Failed to process the deposit."]);
             exit;
         }
 
-        // Save the booking in the database
+        // Save booking in database
         $insertBooking = $database->prepare("
-        INSERT INTO bookings (room_id, room_price, guest_name, arrival_date, departure_date, total_cost, transfer_code)
-        VALUES (:room_id, :room_price, :guest_name, :arrival_date, :departure_date, :total_cost, :transfer_code)
-    ");
+            INSERT INTO bookings (room_id, room_price, guest_name, arrival_date, departure_date, total_cost, transfer_code)
+            VALUES (:room_id, :room_price, :guest_name, :arrival_date, :departure_date, :total_cost, :transfer_code)
+        ");
         $insertBooking->execute([
             ':room_id' => $room,
             ':room_price' => $roomPrice,
@@ -93,30 +124,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $bookingId = $database->lastInsertId();
 
-        // Save features in booking_feature table
+        // Save features in booking_feature table in database
         foreach ($selectedFeatures as $feature) {
             $insertFeature = $database->prepare("
-            INSERT INTO booking_feature (booking_id, feature_id, feature_cost)
-            VALUES (:booking_id, :feature_id, :feature_cost)
-        ");
+                INSERT INTO booking_feature (booking_id, feature_id, feature_cost)
+                VALUES (:booking_id, :feature_id, :feature_cost)
+            ");
             $insertFeature->execute([
                 ':booking_id' => $bookingId,
                 ':feature_id' => $feature['id'],
-                ':feature_cost' => $feature['price']
+                ':feature_cost' => (
+                    $numberOfDays >= $minDaysForDiscount &&
+                    $isEligibleRoom &&
+                    strcasecmp($feature['name'], $discountFeature) === 0
+                ) ? 0 : $feature['price']
             ]);
         }
 
-        // Generate response if booking went well
+        // If all went well, create and return response/reciept as JSON
         $response = [
             "island" => "Lindenwood Isle",
             "hotel" => "Forest Haven Hotel",
             "arrival_date" => $arrivalDate,
             "departure_date" => $departureDate,
             "total_cost" => $totalCost,
-            "stars" => $stars,
             "features" => array_map(fn($feature) => [
                 "name" => $feature['name'],
-                "cost" => $feature['price'],
+                "cost" => (
+                    $numberOfDays >= $minDaysForDiscount &&
+                    $isEligibleRoom &&
+                    strcasecmp($feature['name'], $discountFeature) === 0
+                ) ? 0 : $feature['price']
             ], $selectedFeatures),
             "additional_info" => [
                 "greeting" => "Thank you for choosing Forest Haven Hotel",
@@ -124,9 +162,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]
         ];
 
-        // Skicka JSON-respons
         header('Content-Type: application/json');
         echo json_encode($response, JSON_PRETTY_PRINT);
+
         exit;
     }
 } else {

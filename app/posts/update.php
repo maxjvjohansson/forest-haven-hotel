@@ -33,6 +33,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query->execute();
     }
 
+    // Update discount settings
+    if (isset($_POST['discount_min_days'], $_POST['discount_feature_name'])) {
+        $discountMinDays = (int)$_POST['discount_min_days'];
+        $discountFeatureName = $_POST['discount_feature_name'];
+
+        $query = $database->prepare("
+            UPDATE admin_settings 
+            SET discount_min_days = :min_days, 
+                discount_feature_name = :feature_name
+            WHERE id = 1
+        ");
+        $query->bindParam(':min_days', $discountMinDays, PDO::PARAM_INT);
+        $query->bindParam(':feature_name', $discountFeatureName, PDO::PARAM_STR);
+        $query->execute();
+    }
+
+    // Update rooms that apply for discount
+    if (isset($_POST['discount_rooms']) && is_array($_POST['discount_rooms'])) {
+        $selectedRooms = $_POST['discount_rooms'];
+
+        $query = $database->prepare("
+            UPDATE discount_rooms 
+            SET is_active = 0 
+            WHERE admin_setting_id = 1
+        ");
+        $query->execute();
+
+        $query = $database->prepare("
+            UPDATE discount_rooms 
+            SET is_active = 1 
+            WHERE admin_setting_id = 1 AND room_name = :room_name
+        ");
+
+        foreach ($selectedRooms as $roomName) {
+            $query->bindParam(':room_name', $roomName, PDO::PARAM_STR);
+            $query->execute();
+        }
+    }
+
     // Send user back to admin dashboard with a message that everything went well
     header('Location: ../../admin/dashboard.php?success=1');
     exit;

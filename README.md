@@ -165,9 +165,6 @@ INSERT INTO admin_settings (stars, discount_feature_name, discount_min_days)
 VALUES
 (3, 'Nature-Inspired Spa Retreat', 3);
 
--- DISCOUNT_ROOMS INSERTS
-INSERT INTO discount_rooms (admin_setting_id, room_name, is_active)
-SELECT 1, name, 0 FROM rooms;
 ```
 
 ---

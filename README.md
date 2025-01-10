@@ -200,7 +200,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
----
 ## Jennies comments
 
 - **store.php line 33-38** it's nice but I don't see why you would need this and not just add a "required" in the tags on the HTML-form? Then you can target it with CSS as well (if you would like to).

@@ -200,6 +200,10 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
+Enjoy your stay at **Forest Haven Hotel**!
+
+---
+
 ## Jennies comments
 
 - **store.php line 33-38** it's nice but I don't see why you would need this and not just add a "required" in the tags on the HTML-form? Then you can target it with CSS as well (if you would like to).
@@ -215,6 +219,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - **footer.php** I would use section instead as it's a bit more symantic.
 
 - **index.php line 54** Why do you have a span within a p on the enitre text? I recomend using a class on the p tag instead.
-
-Enjoy your stay at **Forest Haven Hotel**!
 

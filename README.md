@@ -3,6 +3,22 @@
 **Forest Haven Hotel** is a fictional hotel located on a serene island surrounded by lush forests and calm waters. This project allows users to book rooms, select additional services, and to manage reservations for an unforgettable stay.
 
 ---
+## Jennies comments
+
+- **store.php line 33-38** it's nice but I don't see why you would need this and not just add a "required" in the tags on the HTML-form? Then you can target it with CSS as well (if you would like to).
+
+- **Over all queries in php to the DB** Some times you use the $query->bindParam and other times you bind the parameter in the execute. I personaly prefere doing it in the execute, as it's one step less and still good readability if you "indent" right.
+
+- **get_bookings.php** I don't get why this function is in a sepperate file and not a part of the functions.php?
+
+- **Book now in the nav** This link isn't smooth scroll it's a jump(default on anchor links). It would be nice if that link also scrolled like the CTA-button, since your page has a full-screen hero.
+
+- **header.php line 31-52** Why is the nav in a div with the logo on the outside? I would recomend having everything in a nav, skip the div and put justify-self: end; on the logo.
+
+- **footer.php** I would use <section> instead as it's a bit more symantic.
+
+- **index.php line 54** Why do you have a <span> within a <p> on the enitre text? I recomend using a class on the <p> tag instead.
+---
 
 ## Features
 

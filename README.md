@@ -15,9 +15,9 @@
 
 - **header.php line 31-52** Why is the nav in a div with the logo on the outside? I would recomend having everything in a nav, skip the div and put justify-self: end; on the logo.
 
-- **footer.php** I would use <section> instead as it's a bit more symantic.
+- **footer.php** I would use section instead as it's a bit more symantic.
 
-- **index.php line 54** Why do you have a <span> within a <p> on the enitre text? I recomend using a class on the <p> tag instead.
+- **index.php line 54** Why do you have a span within a p on the enitre text? I recomend using a class on the p tag instead.
 ---
 
 ## Features
